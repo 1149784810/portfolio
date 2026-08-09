@@ -74,7 +74,7 @@
           <h3>C++/Python 桥接层（headless 训练环境）</h3>
           <ul>
           <li>基于 pybind11 将游戏战斗核心（BattleCore，50+ 子模块）剥离为 headless 确定性训练环境（CMake 只读引用游戏源码，零 sim-to-real gap）</li>
-          <li>录像重放器（replay_player）按 Order==Executed+1 定位稀疏输入，动作捕获率 ~2%→接近 100%；输入编码器（input_encoder）重写 29 种 EInputType（修复 8 个编组/技能/移动命令错位 bug）</li>
+          <li>录像重放器（replay_player）按 Order==Executed+1 定位稀疏输入，输入编码器（input_encoder）重写 29 种 EInputType（修复 8 个编组/技能/移动命令错位 bug）</li>
           <li>每决策帧输出 glob(64)+group_summaries(10×14)+card_state(8×88)+commander(40) 特征；C++ 内嵌推理（rl_inference），最终战斗服务器内嵌</li>
           </ul>
         </div>
@@ -94,7 +94,7 @@
         <div class="work-body">
           <h3>模型架构</h3>
           <ul>
-          <li>时序 Transformer 统一策略（SeqUnifiedPolicy，~7.9M 参数）：16 决策帧=8s 滑窗 + 相邻帧 delta 差分 + 可学习时间位置编码</li>
+          <li>时序 Transformer 统一策略（SeqUnifiedPolicy，7.9M 参数）：16 决策帧=8s 滑窗 + 相邻帧 delta 差分 + 可学习时间位置编码</li>
           <li>语义目标动作空间（换图泛化关键）：主目标=(类型,序号)联合选择头 + 相对偏移（8 方向×3 距离桶）+ 意图，不输出绝对坐标，per-group 10 槽动作头</li>
           <li>辅助预测头（VP 曲线/对手下一动作/资源兵力轨迹/终局胜负）+ 动作空间对齐引擎（7 类全局动作）</li>
           </ul>

@@ -71,7 +71,7 @@ PROJECTS = [
         'groups': [
             ('C++/Python 桥接层（headless 训练环境）', [
                 '基于 pybind11 将游戏战斗核心（BattleCore，50+ 子模块）剥离为 headless 确定性训练环境（CMake 只读引用游戏源码，零 sim-to-real gap）',
-                '录像重放器（replay_player）按 Order==Executed+1 定位稀疏输入，动作捕获率 ~2%→接近 100%；输入编码器（input_encoder）重写 29 种 EInputType（修复 8 个编组/技能/移动命令错位 bug）',
+                '录像重放器（replay_player）按 Order==Executed+1 定位稀疏输入，输入编码器（input_encoder）重写 29 种 EInputType（修复 8 个编组/技能/移动命令错位 bug）',
                 '每决策帧输出 glob(64)+group_summaries(10×14)+card_state(8×88)+commander(40) 特征；C++ 内嵌推理（rl_inference），最终战斗服务器内嵌',
             ]),
             ('数据工程（零人工标注）', [
@@ -79,7 +79,7 @@ PROJECTS = [
                 '50 张 CSV 战斗数值表 → pydantic 可演化 schema 生成器（外键/ENUM/克制字段识别、版本哈希防漂移、漂移校验器）',
             ]),
             ('模型架构', [
-                '时序 Transformer 统一策略（SeqUnifiedPolicy，~7.9M 参数）：16 决策帧=8s 滑窗 + 相邻帧 delta 差分 + 可学习时间位置编码',
+                '时序 Transformer 统一策略（SeqUnifiedPolicy，7.9M 参数）：16 决策帧=8s 滑窗 + 相邻帧 delta 差分 + 可学习时间位置编码',
                 '语义目标动作空间（换图泛化关键）：主目标=(类型,序号)联合选择头 + 相对偏移（8 方向×3 距离桶）+ 意图，不输出绝对坐标，per-group 10 槽动作头',
                 '辅助预测头（VP 曲线/对手下一动作/资源兵力轨迹/终局胜负）+ 动作空间对齐引擎（7 类全局动作）',
             ]),
@@ -116,7 +116,7 @@ PROJECTS = [
         'intro': '面向企业战略/财务/人力/法务等咨询场景的 AI 咨询顾问平台（企业外包项目）：以 GLM-4-9B 为基座，构建「官网获客 + AI 智能咨询 + 人工修正沉淀 + 模型微调迭代」的数据飞轮闭环，实现「越用越聪明」的私有化咨询模型；已上线腾讯云公网。',
         'groups': [
             ('官网（React）', [
-                'React 19 + Vite 7 + Tailwind + shadcn/ui（40+ 组件）官网（首页/服务/案例/关于 + 6 个脱敏真实咨询案例）',
+                'React 19 + Vite 7 + Tailwind + shadcn/ui 官网（首页/服务/案例/关于 + 6 个脱敏真实咨询案例）',
                 'AI 智能咨询对话（OpenAI 兼容协议 + SSE 流式逐字输出 + 思考过程透传，无后端自动降级演示模式）、预约/报名表单 + 评分反馈、响应式 + SEO + SPA 路由',
             ]),
             ('数据收集后台（数据飞轮核心）', [
@@ -160,7 +160,7 @@ PROJECTS = [
         'intro': '专注视觉小说（galgame）创作与分发的平台：为创作者提供低门槛的 AI 辅助创作工具，为读者提供内容市场（一次性购买 + 按章节订阅），含社区互动、钱包积分、支付结算、创作者收益、管理后台等完整商业闭环。',
         'groups': [
             ('后端服务（FastAPI 模块化架构）', [
-                'FastAPI 模块化后端 35+ 路由模块（认证/项目/剧情/章节/支付/订单/创作者收益/社区/搜索/存储/发布/审核/后台统计）+ 商业系统（支付 Provider 抽象、订阅与买断、积分体系、创作者分成、审计日志）',
+                'FastAPI 模块化后端，路由模块覆盖认证/项目/剧情/章节/支付/订单/创作者收益/社区/搜索/存储/发布/审核/后台统计；商业系统（支付 Provider 抽象、订阅与买断、积分体系、创作者分成、审计日志）',
                 'AI 生成管线接入 ComfyUI + Seedream/MiniMax/火山引擎/Holopix（文生图/图生图/语音），统一 client 抽象 + 任务队列 + 成本与 token 统计；AI 对话 Agent（agent_chat）多轮助手',
             ]),
             ('Web 端视觉小说游戏框架', [
