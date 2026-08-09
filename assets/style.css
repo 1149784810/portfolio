@@ -169,8 +169,9 @@ h2::before {
 /* 实地考察照片（PPT 下方独立展示） */
 .field-photo { display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .field-photo img {
-  max-width: 660px; width: 100%; border-radius: 12px;
+  max-width: 480px; width: 100%; border-radius: 12px;
   border: 1px solid var(--border);
+  max-height: 60vh; object-fit: contain;
 }
 .field-note {
   font-size: 15px; font-weight: 700; color: #d9ecf7;
