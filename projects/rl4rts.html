@@ -43,6 +43,23 @@
       <p class="intro-text">面向二战题材联机竞技 RTS 的强化学习训练框架。最终目标：训练可上线 PvP Bot，按段位生产不同强度、模拟真人，填充排位匹配（当前里程碑：1v1 完整对局击败规则 AI 胜率 ≥60%，且在 2+ 张地图泛化）。路线：百万级录像模仿学习（BC）→ 门禁评测 → KL 锚定 PPO → 自博弈阶梯（League）。</p>
     </div>
   </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="gallery">
+        <figure data-src="../assets/rl4rts-1.jpg">
+          <img src="../assets/rl4rts-1.jpg" alt="强化学习训练指标" loading="lazy">
+          <figcaption>强化学习训练指标</figcaption>
+        </figure>
+      </div>
+<div class="gallery">
+        <figure class="wide">
+          <video controls preload="metadata" src="../assets/rl4rts-demo.mp4"></video>
+          <figcaption>对战演示视频</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
   <section id="work">
     <div class="wrap">
       <h2>核心工作</h2>
@@ -133,7 +150,7 @@
 
 <script>
 (function () {
-  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure[data-src]'));
   var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
   var lb = document.getElementById('lightbox');
   var img = document.getElementById('lbImg');

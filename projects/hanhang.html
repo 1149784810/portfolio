@@ -140,7 +140,7 @@
 
 <script>
 (function () {
-  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure[data-src]'));
   var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
   var lb = document.getElementById('lightbox');
   var img = document.getElementById('lbImg');

@@ -92,7 +92,12 @@ PROJECTS = [
             ]),
         ],
         'stack': ['Python 3.11', 'PyTorch', 'Gymnasium', 'pydantic', 'uv', 'C++17', 'pybind11', 'CMake/ninja', 'ONNX Runtime', 'DDP 分布式训练（6×RTX 5090）'],
-        'gallery': None,
+        'gallery': [
+            ('assets/rl4rts-1.jpg', '强化学习训练指标', False),
+        ],
+        'videos': [
+            ('assets/rl4rts-demo.mp4', '对战演示视频'),
+        ],
     },
     {
         'id': 'hanhang',
@@ -320,7 +325,7 @@ PROJECTS = [
 LIGHTBOX_JS = """
 <script>
 (function () {
-  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure[data-src]'));
   var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
   var lb = document.getElementById('lightbox');
   var img = document.getElementById('lbImg');
@@ -400,19 +405,29 @@ def project_page(p):
         sections.append(
             '  <section id="intro">\n    <div class="wrap">\n      <h2>项目简介</h2>\n'
             '      <p class="intro-text">%s</p>\n    </div>\n  </section>' % intro)
-    # 截图（紧跟项目简介；无图项目不显示该板块）
-    if p.get('gallery'):
-        figs = []
-        for src, cap, wide in p['gallery']:
-            cls = ' class="wide"' if wide else ''
-            href = '../' + src
-            figs.append(
-                '        <figure%s data-src="%s">\n          <img src="%s" alt="%s" loading="lazy">\n'
-                '          <figcaption>%s</figcaption>\n        </figure>' % (cls, href, href, cap, cap))
-        gallery = '\n'.join(figs)
+    # 截图/视频（紧跟项目简介；无图无视频项目不显示该板块）
+    if p.get('gallery') or p.get('videos'):
+        parts = []
+        if p.get('gallery'):
+            figs = []
+            for src, cap, wide in p['gallery']:
+                cls = ' class="wide"' if wide else ''
+                href = '../' + src
+                figs.append(
+                    '        <figure%s data-src="%s">\n          <img src="%s" alt="%s" loading="lazy">\n'
+                    '          <figcaption>%s</figcaption>\n        </figure>' % (cls, href, href, cap, cap))
+            parts.append('<div class="gallery">\n%s\n      </div>' % '\n'.join(figs))
+        if p.get('videos'):
+            vids = []
+            for src, cap in p['videos']:
+                href = '../' + src
+                vids.append(
+                    '        <figure class="wide">\n          <video controls preload="metadata" src="%s"></video>\n'
+                    '          <figcaption>%s</figcaption>\n        </figure>' % (href, cap))
+            parts.append('<div class="gallery">\n%s\n      </div>' % '\n'.join(vids))
         sections.append(
             '  <section id="screenshots">\n    <div class="wrap">\n      <h2>项目截图</h2>\n'
-            '      <div class="gallery">\n%s\n      </div>\n    </div>\n  </section>' % gallery)
+            '      %s\n    </div>\n  </section>' % '\n'.join(parts))
     # 核心工作
     work = []
     if p.get('groups'):
