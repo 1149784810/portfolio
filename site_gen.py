@@ -368,6 +368,19 @@ def project_page(p):
         sections.append(
             '  <section id="intro">\n    <div class="wrap">\n      <h2>项目简介</h2>\n'
             '      <p class="intro-text">%s</p>\n    </div>\n  </section>' % intro)
+    # 截图（紧跟项目简介；无图项目不显示该板块）
+    if p.get('gallery'):
+        figs = []
+        for src, cap, wide in p['gallery']:
+            cls = ' class="wide"' if wide else ''
+            href = '../' + src
+            figs.append(
+                '        <figure%s data-src="%s">\n          <img src="%s" alt="%s" loading="lazy">\n'
+                '          <figcaption>%s</figcaption>\n        </figure>' % (cls, href, href, cap, cap))
+        gallery = '\n'.join(figs)
+        sections.append(
+            '  <section id="screenshots">\n    <div class="wrap">\n      <h2>项目截图</h2>\n'
+            '      <div class="gallery">\n%s\n      </div>\n    </div>\n  </section>' % gallery)
     # 核心工作
     work = []
     if p.get('groups'):
@@ -382,24 +395,6 @@ def project_page(p):
     sections.append(
         '  <section id="stack">\n    <div class="wrap">\n      <h2>技术栈</h2>\n'
         '      <div class="stack">\n%s\n      </div>\n    </div>\n  </section>' % stack_html(p['stack']))
-    # 截图（项目页位于 projects/ 子目录，资源路径需加 ../）
-    if p.get('gallery'):
-        figs = []
-        for src, cap, wide in p['gallery']:
-            cls = ' class="wide"' if wide else ''
-            href = '../' + src
-            figs.append(
-                '        <figure%s data-src="%s">\n          <img src="%s" alt="%s" loading="lazy">\n'
-                '          <figcaption>%s</figcaption>\n        </figure>' % (cls, href, href, cap, cap))
-        gallery = '\n'.join(figs)
-        screenshots = (
-            '  <section id="screenshots">\n    <div class="wrap">\n      <h2>项目截图</h2>\n'
-            '      <div class="gallery">\n%s\n      </div>\n    </div>\n  </section>' % gallery)
-    else:
-        screenshots = (
-            '  <section id="screenshots">\n    <div class="wrap">\n      <h2>项目截图</h2>\n'
-            '      <div class="ph">截图整理中，敬请期待</div>\n    </div>\n  </section>')
-    sections.append(screenshots)
 
     return '''<!DOCTYPE html>
 <html lang="zh-CN">
