@@ -697,7 +697,6 @@ def index_page():
     </p>
     <div class="meta-row">
       <span class="chip"><span class="dot"></span>持续更新中</span>
-      <span class="chip accent">个人项目</span>
       <span class="chip">AI × 游戏开发 × 全栈</span>
     </div>
   </div>
