@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UnrealGenAI — AI 驱动虚幻引擎游戏开发</title>
+<meta name="description" content="基于 Qwen3-32B 持续预训练的游戏布景与资产批量操作项目：让基座模型学会 3D 游戏布景与 UI 蓝图拼接，并通">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">AI × GAME DEV · AI 驱动游戏开发</div>
+    <h1>UnrealGenAI<span class="grad"> · AI 驱动虚幻引擎游戏开发</span></h1>
+    <div class="meta-row">
+      <span class="chip"><span class="dot"></span>进行中 · 2026.06.15 - 至今</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">AI / 游戏开发 / 工具链</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">基于 Qwen3-32B 持续预训练的游戏布景与资产批量操作项目：让基座模型学会 3D 游戏布景与 UI 蓝图拼接，并通过 SFT 微调使其能够调用自研 Agent 工具，实现虚幻资产的批量操作。
+      </p>
+      <p class="intro-text" style="margin-top:14px">项目目标：选用 Qwen3-32B 作为基座模型，通过解析虚幻引擎场景与蓝图数据构建语料进行持续预训练，使基座模型学会 3D 游戏布景与 UI 蓝图拼接能力；在此基础上通过 SFT 微调对齐指令语义，使模型能够正确调用自研 agent 暴露的工具，实现虚幻资产的批量操作。</p>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>训练语料生产管线</h3>
+          <ul>
+          <li>使用 C++ 在 UE 5.7 中实现战斗 / 平台跳跃 / 横版卷轴三套玩法变体（27 个 UCLASS、StateTree 自研 11 个 AI 条件/任务节点、UInterface + AnimNotify 解耦设计），作为场景数据来源与重建验证环境</li>
+          <li>基于 UE Python Remote Execution 协议（UDP 服务发现 + TCP 命令通道）实现编辑器远程驱动层，沉淀 13 个场景操作命令与「场景分析 → 轨迹重建 → 自动校验」闭环</li>
+          <li>产出场景轨迹 + 资产仓库 + 风格标注的结构化数据集（5 个场景、最大 2700 条操作）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div class="work-body">
+          <h3>数据自动采集工具 — DataTracer</h3>
+          <ul>
+          <li>开发 DataTracer（Electron）调度无头 Claude 自动执行采集流程</li>
+          <li>实现「填表标注（7 个风格 conditioning 字段）→ 自动采集 → 验证入库」全流程，内置 FIFO 串行任务队列、增量日志、严格安全防护</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">03</div>
+        <div class="work-body">
+          <h3>自研多 Agent 工具调用框架 — MatrixEngine</h3>
+          <ul>
+          <li>设计并实现 MatrixEngine（Electron + React + TypeScript + Fastify + Prisma + PostgreSQL）：星型拓扑 4 角色 agent 协作（root 编排 + resource / ue_ops / code 专职执行）</li>
+          <li>13 个工具（文件操作、正则搜索、远程操作 UE 编辑器、资源生成等），支持 LLM 双协议流式接入（OpenAI / Anthropic）、上下文自动压缩、分级权限审批与破坏性操作确认</li>
+          <li>后端 JWT + Argon2id + Zod 双端共享校验 + owner-scoping 权限隔离</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">04</div>
+        <div class="work-body">
+          <h3>动态场景生成</h3>
+          <ul>
+          <li>采用第三方 Houdini Agent + Houdini + 虚幻 PCG 流程进行动态场景生成，与训练数据管线衔接</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">05</div>
+        <div class="work-body">
+          <h3>工程实践</h3>
+          <ul>
+          <li>Electron 安全加固（contextIsolation / contextBridge / DPAPI 加密）、UE 命令并发互斥、fail-closed 安全护栏、测试覆盖（Vitest / node:test + c8 ≥80%）</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>Qwen3-32B</span>
+        <span>虚幻引擎 5.7</span>
+        <span>C++</span>
+        <span>Python</span>
+        <span>Electron</span>
+        <span>React</span>
+        <span>TypeScript</span>
+        <span>Fastify</span>
+        <span>Prisma</span>
+        <span>PostgreSQL</span>
+        <span>Houdini</span>
+        <span>UE Python Remote Execution</span>
+      </div>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="gallery">
+        <figure class="wide" data-src="../assets/unrealgenai-3.jpg">
+          <img src="../assets/unrealgenai-3.jpg" alt="项目截图 3" loading="lazy">
+          <figcaption>项目截图 3</figcaption>
+        </figure>
+        <figure data-src="../assets/unrealgenai-1.jpg">
+          <img src="../assets/unrealgenai-1.jpg" alt="项目截图 1" loading="lazy">
+          <figcaption>项目截图 1</figcaption>
+        </figure>
+        <figure data-src="../assets/unrealgenai-2.jpg">
+          <img src="../assets/unrealgenai-2.jpg" alt="项目截图 2" loading="lazy">
+          <figcaption>项目截图 2</figcaption>
+        </figure>
+        <figure data-src="../assets/unrealgenai-4.jpg">
+          <img src="../assets/unrealgenai-4.jpg" alt="项目截图 4" loading="lazy">
+          <figcaption>项目截图 4</figcaption>
+        </figure>
+        <figure data-src="../assets/unrealgenai-5.jpg">
+          <img src="../assets/unrealgenai-5.jpg" alt="项目截图 5" loading="lazy">
+          <figcaption>项目截图 5</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>

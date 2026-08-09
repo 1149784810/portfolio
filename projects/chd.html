@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHD 科创平台 — 长安大学线上赛事交流微信小程序</title>
+<meta name="description" content="为长安大学设计的线上赛事交流平台，已上架微信平台，校内注册用户 20000+，解决科创活动中队友难组、项目难找等问题。">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">CAMPUS PROJECT · 校园项目</div>
+    <h1>CHD 科创平台<span class="grad"> · 长安大学线上赛事交流微信小程序</span></h1>
+    <div class="meta-row">
+      <span class="chip">2018.09.01 - 2022.06.22（大学期间）</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">微信小程序 / 20000+ 注册用户</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="links">
+    <div class="wrap">
+      <h2>链接</h2>
+      <div class="link-list">
+        <div class="link-item"><a href="https://webplus.chd.edu.cn/_s179/2021/0518/c9351a193006/page.psp" target="_blank" rel="noopener">学校官方报道</a></div>
+      </div>
+    </div>
+  </section>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">为长安大学设计的线上赛事交流平台，已上架微信平台，校内注册用户 20000+，解决科创活动中队友难组、项目难找等问题。</p>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>核心工作</h3>
+          <ul>
+          <li>线上赛事交流平台，可在后台内容管理网站实时查看数据</li>
+          <li>带领学弟组成学习小组进行前端后端技术学习，并完成平台从 0 到 1 的开发与上线</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>JavaScript</span>
+        <span>Java</span>
+        <span>腾讯云开发</span>
+        <span>微信小程序</span>
+      </div>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="ph">截图整理中，敬请期待</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>

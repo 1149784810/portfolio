@@ -3,187 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UnrealGenAI — AI 驱动虚幻引擎游戏开发</title>
-<meta name="description" content="UnrealGenAI：基于 Qwen3-32B 持续预训练的游戏布景与资产批量操作项目">
-<style>
-  :root {
-    --bg: #0a0f1a;
-    --bg-card: #111827;
-    --bg-card-hover: #16213a;
-    --border: #1f2b42;
-    --accent: #4aa8d8;
-    --accent-dim: #238eb2;
-    --text: #e5e7eb;
-    --muted: #8fa3bd;
-    --ok: #34d399;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-  }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
-
-  /* ── Hero ── */
-  .hero {
-    position: relative;
-    padding: 88px 0 64px;
-    background:
-      radial-gradient(600px 260px at 20% 0%, rgba(35, 142, 178, 0.18), transparent 60%),
-      radial-gradient(500px 240px at 85% 10%, rgba(74, 168, 216, 0.12), transparent 60%),
-      linear-gradient(180deg, #0c1424 0%, var(--bg) 100%);
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-  }
-  .hero::after {
-    content: "";
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(74,168,216,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(74,168,216,0.05) 1px, transparent 1px);
-    background-size: 44px 44px;
-    pointer-events: none;
-  }
-  .hero .wrap { position: relative; z-index: 1; }
-  .tagline {
-    font-size: 13px; letter-spacing: 3px; color: var(--accent);
-    margin-bottom: 14px; font-weight: 600;
-  }
-  .hero h1 {
-    font-size: clamp(30px, 5vw, 46px);
-    font-weight: 700; letter-spacing: 1px; line-height: 1.25;
-  }
-  .hero h1 .grad {
-    background: linear-gradient(90deg, #6ec3ee, var(--accent));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .hero .sub { margin-top: 16px; color: var(--muted); font-size: 15px; max-width: 640px; }
-  .meta-row { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-  .chip {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 5px 14px; border-radius: 999px;
-    border: 1px solid var(--border); background: rgba(17, 24, 39, 0.8);
-    font-size: 13px; color: var(--text);
-  }
-  .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
-  .chip.accent { border-color: rgba(74,168,216,0.5); color: var(--accent); }
-
-  /* ── Sections ── */
-  section { padding: 48px 0; }
-  section + section { border-top: 1px solid var(--border); }
-  h2 {
-    font-size: 20px; font-weight: 700; margin-bottom: 6px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  h2::before {
-    content: ""; width: 4px; height: 20px; border-radius: 2px;
-    background: linear-gradient(180deg, #6ec3ee, var(--accent-dim));
-  }
-  .sec-desc { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
-
-  /* 技术栈 */
-  .stack { display: flex; flex-wrap: wrap; gap: 10px; }
-  .stack span {
-    padding: 6px 14px; border-radius: 8px; font-size: 13px;
-    background: rgba(35, 142, 178, 0.12); border: 1px solid rgba(35, 142, 178, 0.35);
-    color: #9fd4f0;
-  }
-
-  /* 核心工作卡片 */
-  .work-list { display: flex; flex-direction: column; gap: 14px; }
-  .work-item {
-    display: flex; gap: 16px; padding: 18px 20px;
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 12px; transition: border-color .2s, background .2s;
-  }
-  .work-item:hover { border-color: rgba(74,168,216,0.5); background: var(--bg-card-hover); }
-  .work-num {
-    flex: 0 0 34px; height: 34px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(35,142,178,0.18); color: var(--accent);
-    font-weight: 700; font-size: 15px;
-  }
-  .work-body h3 { font-size: 15.5px; margin-bottom: 6px; font-weight: 600; }
-  .work-body p { font-size: 13.5px; color: var(--muted); }
-  .work-body .hl { color: var(--text); }
-  .work-body code {
-    font-family: "SF Mono", Consolas, "Courier New", monospace;
-    font-size: 12px; color: #8ecdf5; background: rgba(74,168,216,0.08);
-    padding: 1px 5px; border-radius: 4px;
-  }
-
-  /* 项目展示标题区 */
-  .proj-showcase .tagline {
-    font-size: 13px; letter-spacing: 3px; color: var(--accent);
-    margin-bottom: 10px; font-weight: 600;
-  }
-  .proj-showcase .meta-row { margin-top: 14px; }
-
-  /* 项目列表卡片 */
-  .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 12px; }
-  .proj-card {
-    display: block; padding: 16px 18px; border-radius: 12px;
-    background: var(--bg-card); border: 1px solid var(--border);
-    text-decoration: none; color: var(--text);
-    transition: border-color .2s, background .2s, transform .2s;
-  }
-  .proj-card:hover { border-color: rgba(74,168,216,0.5); background: var(--bg-card-hover); transform: translateY(-2px); }
-  .proj-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-  .proj-desc { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
-  .proj-tag { font-size: 12px; }
-  .proj-card.live .proj-tag { color: var(--ok); }
-  .proj-card:not(.live) .proj-tag { color: var(--muted); }
-
-  /* 截图画廊 */
-  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .gallery figure {
-    margin: 0; border-radius: 12px; overflow: hidden;
-    border: 1px solid var(--border); background: var(--bg-card);
-    cursor: zoom-in; transition: border-color .2s, transform .2s;
-  }
-  .gallery figure:hover { border-color: rgba(74,168,216,0.6); transform: translateY(-2px); }
-  .gallery figure.wide { grid-column: 1 / -1; }
-  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .gallery figcaption {
-    padding: 8px 12px; font-size: 12px; color: var(--muted);
-    border-top: 1px solid var(--border);
-  }
-
-  /* Lightbox */
-  .lightbox {
-    position: fixed; inset: 0; z-index: 100;
-    background: rgba(5, 8, 14, 0.94);
-    display: none; align-items: center; justify-content: center;
-    padding: 32px; cursor: zoom-out;
-  }
-  .lightbox.open { display: flex; }
-  .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 8px; box-shadow: 0 20px 80px rgba(0,0,0,.6); }
-  .lightbox .nav {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
-    color: #fff; font-size: 20px; cursor: pointer; display: flex;
-    align-items: center; justify-content: center; user-select: none;
-  }
-  .lightbox .nav:hover { background: rgba(255,255,255,0.16); }
-  .lightbox .nav.prev { left: 24px; }
-  .lightbox .nav.next { right: 24px; }
-  .lightbox .close {
-    position: absolute; top: 18px; right: 24px; font-size: 26px;
-    color: #fff; cursor: pointer; opacity: .8;
-  }
-  .lightbox .close:hover { opacity: 1; }
-
-  footer { border-top: 1px solid var(--border); padding: 28px 0 40px; text-align: center; color: var(--muted); font-size: 13px; }
-
-  @media (max-width: 640px) {
-    .gallery { grid-template-columns: 1fr; }
-    .work-item { flex-direction: column; gap: 10px; }
-  }
-</style>
+<title>何健乐项目作品集</title>
+<meta name="description" content="AI 驱动游戏开发与全栈项目作品展示">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
@@ -204,200 +26,51 @@
 </header>
 
 <main>
-  <!-- 项目列表 -->
   <section id="projects">
     <div class="wrap">
       <h2>项目列表</h2>
-      <p class="sec-desc">作品集持续更新中，点击已上线项目查看详情</p>
+      <p class="sec-desc">点击项目卡片查看详情（各项目截图持续补充中）</p>
       <div class="proj-grid">
-        <a class="proj-card live" href="#unrealgenai">
+        <a class="proj-card" href="projects/unrealgenai.html">
           <div class="proj-name">UnrealGenAI</div>
-          <div class="proj-desc">AI 驱动虚幻引擎游戏开发 · 个人项目</div>
-          <div class="proj-tag">已上线 · 查看详情 →</div>
+          <div class="proj-desc">AI 驱动虚幻引擎游戏开发</div>
+          <div class="proj-tag">查看详情 →</div>
         </a>
-        <div class="proj-card">
+        <a class="proj-card" href="projects/rl4rts.html">
           <div class="proj-name">RL4RTS</div>
-          <div class="proj-desc">二战 RTS 游戏强化学习 Bot 训练框架 · 个人项目</div>
-          <div class="proj-tag">展示页制作中</div>
-        </div>
-        <div class="proj-card">
+          <div class="proj-desc">二战 RTS 游戏强化学习 Bot 训练框架</div>
+          <div class="proj-tag">查看详情 →</div>
+        </a>
+        <a class="proj-card" href="projects/hanhang.html">
           <div class="proj-name">瀚航咨询</div>
-          <div class="proj-desc">企业咨询大模型微调与数据飞轮平台 · 企业外包</div>
-          <div class="proj-tag">展示页制作中</div>
-        </div>
-        <div class="proj-card">
+          <div class="proj-desc">企业咨询大模型微调与数据飞轮平台（GLM-4-9B）</div>
+          <div class="proj-tag">查看详情 →</div>
+        </a>
+        <a class="proj-card" href="projects/yuan.html">
           <div class="proj-name">源世界平台</div>
           <div class="proj-desc">视觉小说创作与分发全栈平台</div>
-          <div class="proj-tag">展示页制作中</div>
-        </div>
-        <div class="proj-card">
+          <div class="proj-tag">查看详情 →</div>
+        </a>
+        <a class="proj-card" href="projects/yinghuo.html">
           <div class="proj-name">萤火智创（FireflyMind）</div>
           <div class="proj-desc">AI 辅助一人创业全流程平台</div>
-          <div class="proj-tag">展示页制作中</div>
-        </div>
-        <div class="proj-card">
+          <div class="proj-tag">查看详情 →</div>
+        </a>
+        <a class="proj-card" href="projects/waralert.html">
           <div class="proj-name">战争警戒（WarAlert）</div>
           <div class="proj-desc">联机竞技 RTS · 移动端 / PC 端</div>
-          <div class="proj-tag">展示页制作中</div>
-        </div>
-        <div class="proj-card">
+          <div class="proj-tag">查看详情 →</div>
+        </a>
+        <a class="proj-card" href="projects/shenxuan.html">
           <div class="proj-name">神选者（The Chosen One）</div>
-          <div class="proj-desc">支持联机的恶魔城 · Unity</div>
-          <div class="proj-tag">展示页制作中</div>
-        </div>
-        <div class="proj-card">
+          <div class="proj-desc">支持联机的恶魔城</div>
+          <div class="proj-tag">查看详情 →</div>
+        </a>
+        <a class="proj-card" href="projects/chd.html">
           <div class="proj-name">CHD 科创平台</div>
           <div class="proj-desc">长安大学线上赛事交流微信小程序</div>
-          <div class="proj-tag">展示页制作中</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- UnrealGenAI 作品展示 -->
-  <section id="unrealgenai" class="proj-showcase">
-    <div class="wrap">
-      <div class="tagline">PROJECT SHOWCASE · UNREALGENAI</div>
-      <h2>UnrealGenAI 作品展示</h2>
-      <p class="sec-desc">AI 驱动虚幻引擎游戏开发：基于 Qwen3-32B 持续预训练，让基座模型学会 3D 游戏布景与 UI 蓝图拼接，并通过 SFT 微调使其能够调用自研 Agent 工具，实现虚幻资产的批量操作。</p>
-      <div class="meta-row">
-        <span class="chip"><span class="dot"></span>进行中 · 2026.06.15 - 至今</span>
-        <span class="chip accent">个人项目</span>
-        <span class="chip">AI / 游戏开发 / 工具链</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- 技术栈 -->
-  <section id="stack">
-    <div class="wrap">
-      <h2>技术栈</h2>
-      <p class="sec-desc">从大模型训练到编辑器自动化，全链路自研</p>
-      <div class="stack">
-        <span>Qwen3-32B</span><span>虚幻引擎 5.7</span><span>C++</span><span>Python</span>
-        <span>Electron</span><span>React</span><span>TypeScript</span><span>Fastify</span>
-        <span>Prisma</span><span>PostgreSQL</span><span>Houdini</span><span>UE Python Remote Execution</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- 项目目标 -->
-  <section id="goal">
-    <div class="wrap">
-      <h2>项目目标</h2>
-      <p class="sec-desc">从 0 到 1 训练一个「会搭游戏场景」的 AI</p>
-      <div class="work-item" style="display:block">
-        <p style="font-size:14px;color:var(--text)">
-          选用 <span class="hl">Qwen3-32B</span> 作为基座模型，通过解析虚幻引擎场景与蓝图数据构建语料进行<span class="hl">持续预训练</span>，
-          使基座模型学会 3D 游戏布景与 UI 蓝图拼接能力；在此基础上通过 <span class="hl">SFT 微调</span>对齐指令语义，
-          使模型能够正确调用自研 Agent 暴露的工具，实现虚幻资产的批量操作。
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 核心工作 -->
-  <section id="work">
-    <div class="wrap">
-      <h2>核心工作</h2>
-      <p class="sec-desc">数据 → 训练 → 工具 → 场景 → 工程，五条线并行推进</p>
-      <div class="work-list">
-
-        <div class="work-item">
-          <div class="work-num">01</div>
-          <div class="work-body">
-            <h3>训练语料生产管线</h3>
-            <p>
-              使用 <span class="hl">C++ 在 UE 5.7</span> 中实现战斗 / 平台跳跃 / 横版卷轴三套玩法变体
-              （27 个 <code>UCLASS</code>、StateTree 自研 11 个 AI 条件/任务节点、<code>UInterface + AnimNotify</code> 解耦设计），
-              作为场景数据来源与重建验证环境；基于 <span class="hl">UE Python Remote Execution</span> 协议
-              （UDP 服务发现 + TCP 命令通道）实现编辑器远程驱动层，沉淀 13 个场景操作命令与
-              「场景分析 → 轨迹重建 → 自动校验」闭环，产出场景轨迹 + 资产仓库 + 风格标注的结构化数据集
-              （5 个场景、最大 2700 条操作）。
-            </p>
-          </div>
-        </div>
-
-        <div class="work-item">
-          <div class="work-num">02</div>
-          <div class="work-body">
-            <h3>数据自动采集工具 — DataTracer</h3>
-            <p>
-              开发 <code>DataTracer</code>（Electron）调度无头 Claude 自动执行采集流程，
-              实现「填表标注（7 个风格 conditioning 字段）→ 自动采集 → 验证入库」全流程，
-              内置 <span class="hl">FIFO 串行任务队列、增量日志、严格安全防护</span>。
-            </p>
-          </div>
-        </div>
-
-        <div class="work-item">
-          <div class="work-num">03</div>
-          <div class="work-body">
-            <h3>自研多 Agent 工具调用框架 — MatrixEngine</h3>
-            <p>
-              设计并实现 <code>MatrixEngine</code>（Electron + React + TypeScript + Fastify + Prisma + PostgreSQL）：
-              星型拓扑 4 角色 Agent 协作（root 编排 + resource / ue_ops / code 专职执行），
-              13 个工具（文件操作、正则搜索、远程操作 UE 编辑器、资源生成等），
-              支持 LLM 双协议流式接入（OpenAI / Anthropic）、上下文自动压缩、
-              分级权限审批与破坏性操作确认；后端 <span class="hl">JWT + Argon2id + Zod 双端共享校验</span> +
-              owner-scoping 权限隔离。
-            </p>
-          </div>
-        </div>
-
-        <div class="work-item">
-          <div class="work-num">04</div>
-          <div class="work-body">
-            <h3>动态场景生成</h3>
-            <p>
-              采用第三方 <span class="hl">Houdini Agent + Houdini + 虚幻 PCG</span> 流程进行动态场景生成，
-              与训练数据管线衔接，为模型提供无限变体的训练场景来源。
-            </p>
-          </div>
-        </div>
-
-        <div class="work-item">
-          <div class="work-num">05</div>
-          <div class="work-body">
-            <h3>工程实践</h3>
-            <p>
-              Electron 安全加固（<code>contextIsolation / contextBridge / DPAPI</code> 加密）、
-              UE 命令并发互斥、<span class="hl">fail-closed 安全护栏</span>、
-              测试覆盖（Vitest / node:test + c8 ≥80%）。
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- 项目截图 -->
-  <section id="screenshots">
-    <div class="wrap">
-      <h2>项目截图</h2>
-      <p class="sec-desc">点击图片可放大查看</p>
-      <div class="gallery">
-        <figure class="wide" data-src="assets/unrealgenai-3.jpg">
-          <img src="assets/unrealgenai-3.jpg" alt="UnrealGenAI 截图 3" loading="lazy">
-          <figcaption>项目截图 3</figcaption>
-        </figure>
-        <figure data-src="assets/unrealgenai-1.jpg">
-          <img src="assets/unrealgenai-1.jpg" alt="UnrealGenAI 截图 1" loading="lazy">
-          <figcaption>项目截图 1</figcaption>
-        </figure>
-        <figure data-src="assets/unrealgenai-2.jpg">
-          <img src="assets/unrealgenai-2.jpg" alt="UnrealGenAI 截图 2" loading="lazy">
-          <figcaption>项目截图 2</figcaption>
-        </figure>
-        <figure data-src="assets/unrealgenai-4.jpg">
-          <img src="assets/unrealgenai-4.jpg" alt="UnrealGenAI 截图 4" loading="lazy">
-          <figcaption>项目截图 4</figcaption>
-        </figure>
-        <figure data-src="assets/unrealgenai-5.jpg">
-          <img src="assets/unrealgenai-5.jpg" alt="UnrealGenAI 截图 5" loading="lazy">
-          <figcaption>项目截图 5</figcaption>
-        </figure>
+          <div class="proj-tag">查看详情 →</div>
+        </a>
       </div>
     </div>
   </section>
@@ -407,44 +80,5 @@
   <div class="wrap">何健乐 · 个人项目作品集</div>
 </footer>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <span class="close" id="lbClose">×</span>
-  <span class="nav prev" id="lbPrev">‹</span>
-  <img id="lbImg" src="" alt="预览">
-  <span class="nav next" id="lbNext">›</span>
-</div>
-
-<script>
-  (function () {
-    var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
-    var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
-    var lb = document.getElementById('lightbox');
-    var img = document.getElementById('lbImg');
-    var idx = 0;
-
-    function open(i) {
-      idx = (i + srcs.length) % srcs.length;
-      img.src = srcs[idx];
-      lb.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function close() {
-      lb.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
-    document.getElementById('lbClose').addEventListener('click', close);
-    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
-    document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
-    document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
-    document.addEventListener('keydown', function (e) {
-      if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') open(idx - 1);
-      if (e.key === 'ArrowRight') open(idx + 1);
-    });
-  })();
-</script>
 </body>
 </html>

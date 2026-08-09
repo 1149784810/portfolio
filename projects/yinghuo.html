@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>萤火智创（FireflyMind） — AI 辅助一人创业全流程平台</title>
+<meta name="description" content="「一人公司的 AI 总工程师」：用户输入一句话想法，经历头脑风暴 → 市场调研 → 二次调整 → 产品研发四个强制分阶段">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">AI PRODUCT · 一人公司的 AI 总工程师</div>
+    <h1>萤火智创（FireflyMind）<span class="grad"> · AI 辅助一人创业全流程平台</span></h1>
+    <div class="meta-row">
+      <span class="chip">2026.05.10 - 2026.05.30</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">Next.js / NestJS / AI Agent</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">「一人公司的 AI 总工程师」：用户输入一句话想法，经历头脑风暴 → 市场调研 → 二次调整 → 产品研发四个强制分阶段（每阶段依赖前一阶段产出，但可随时跳过并补做），AI 产品经理角色贯穿全程主动提问与建议，商业画布自动生成并随阶段更新；所有操作消耗积分（初始免费额度可完成首个项目至 MVP）；研发阶段由沙箱 Agent 生成代码，关键检查点需用户审批。</p>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>全栈 monorepo 架构（pnpm + Turborepo）</h3>
+          <ul>
+          <li>apps/web（Next.js 14，auth/main/admin 路由隔离，六页签导航 + developmentUnlocked 研发门控）</li>
+          <li>apps/api（NestJS 10，12 个业务模块，Prisma 5 + PostgreSQL 16 模型，Redis session，BullMQ）；packages/shared 类型契约包（ApiResponse 信封 + 全实体 DTO，前后端单一事实来源）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div class="work-body">
+          <h3>四阶段产品流程引擎</h3>
+          <ul>
+          <li>phase-gated 布尔门控推进 + 头脑风暴子阶段状态机（自由讨论→市场调研→冲突消解→完成）</li>
+          <li>文档版本化（ProjectDocument 按阶段记录，商业画布自动生成并随阶段更新）；模块级 TDD 研发管线（design→test_generation→implementation→verification→regression 五步）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">03</div>
+        <div class="work-body">
+          <h3>AI Agent 与积分经济</h3>
+          <ul>
+          <li>AgentEvent 事件协议（progress/ask/finish/error + ask 人机确认，SSE 实时传输）；积分两阶段预扣费（pre_deduct→settle_refund/settle_extra）</li>
+          <li>每项目独立 K8s Namespace + 沙箱预览 + Agent Job Pod 即用即毁 + BullMQ + WebSocket 日志；改造 Claude Code CLI 实现 Remote Control bridge（可分享 URL 远程查看/审批，密钥 8 类正则脱敏，fail-closed）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">04</div>
+        <div class="work-body">
+          <h3>前端体验（Phase A）</h3>
+          <ul>
+          <li>Tailwind 品牌色系 + Radix UI + Lucide + TipTap + Monaco + ECharts</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>Next.js 14</span>
+        <span>React 18</span>
+        <span>Tailwind</span>
+        <span>Radix UI</span>
+        <span>TipTap</span>
+        <span>Monaco</span>
+        <span>ECharts</span>
+        <span>NestJS 10</span>
+        <span>Prisma 5</span>
+        <span>PostgreSQL（pgvector）</span>
+        <span>Redis</span>
+        <span>BullMQ</span>
+        <span>TypeScript</span>
+        <span>pnpm</span>
+        <span>Turborepo</span>
+        <span>Vitest / Jest / Playwright</span>
+      </div>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="ph">截图整理中，敬请期待</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>

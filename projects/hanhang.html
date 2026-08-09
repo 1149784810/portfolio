@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>瀚航咨询 — 企业咨询大模型微调与数据飞轮平台（GLM-4-9B）</title>
+<meta name="description" content="面向企业战略/财务/人力/法务等咨询场景的 AI 咨询顾问平台（企业外包项目）：以 GLM-4-9B 为基座，构建「官网">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">LLM FINE-TUNING · 大模型微调 × 数据飞轮</div>
+    <h1>瀚航咨询<span class="grad"> · 企业咨询大模型微调与数据飞轮平台（GLM-4-9B）</span></h1>
+    <div class="meta-row">
+      <span class="chip">2026.07.15 - 2026.07.30</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">企业外包项目</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="links">
+    <div class="wrap">
+      <h2>链接</h2>
+      <div class="link-list">
+        <div class="link-item"><a href="http://175.24.41.9/" target="_blank" rel="noopener">测试服公网访问</a></div>
+      </div>
+    </div>
+  </section>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">面向企业战略/财务/人力/法务等咨询场景的 AI 咨询顾问平台（企业外包项目）：以 GLM-4-9B 为基座，构建「官网获客 + AI 智能咨询 + 人工修正沉淀 + 模型微调迭代」的数据飞轮闭环，实现「越用越聪明」的私有化咨询模型；已上线腾讯云公网。</p>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>官网（React）</h3>
+          <ul>
+          <li>React 19 + Vite 7 + Tailwind + shadcn/ui（40+ 组件）官网（首页/服务/案例/关于 + 6 个脱敏真实咨询案例）</li>
+          <li>AI 智能咨询对话（OpenAI 兼容协议 + SSE 流式逐字输出 + 思考过程透传，无后端自动降级演示模式）、预约/报名表单 + 评分反馈、响应式 + SEO + SPA 路由</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div class="work-body">
+          <h3>数据收集后台（数据飞轮核心）</h3>
+          <ul>
+          <li>三通道采集（AI 问答自动落库 qa_logs、评分反馈回填、公众纠错池）+ 两级权限（审核员/管理员，JWT）</li>
+          <li>qa_logs 只增不改（原始数据 immutable）、人工修正单独写入 finetune_entries；审核通过导出 Alpaca/JSONL（可选 ChatML-think 包装思考过程），累计 1000 条触发下一轮微调</li>
+          <li>Dashboard 统计 + CSV 批量导入 + 微调库管理</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">03</div>
+        <div class="work-body">
+          <h3>GLM-4-9B 微调管线（SFT）</h3>
+          <ul>
+          <li>语料五步管线：自动提取问答对 → CoT 思维链生成 → LLM 重写增强 → 清洗去重 + 人设越狱负样本 → 多格式导出（Alpaca/ChatML/阿里百炼）</li>
+          <li>训练方案：Unsloth（提速 2 倍、显存减半）+ GLM-4-9B-Chat 4bit + LoRA（r=64, alpha=128），3000-8000 条指令对，max_seq_length 4096</li>
+          <li>先智谱云端验证，后本地 vLLM 私有化部署（OpenAI 兼容 + 合并权重导出）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">04</div>
+        <div class="work-body">
+          <h3>部署与运维（腾讯云）</h3>
+          <ul>
+          <li>单 80 端口 Nginx：官网静态 + /admin/ 后台 + /api/ 反代；rsync 一键部署 + PM2 守护 + SQLite；官网/后台/API 公网在线</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>技术难点与解决</h3>
+          <ul>
+          <li>原始数据不可变 vs 人工修正（只增不改 + 修正单独写库，训练数据可追溯不污染）</li>
+          <li>SFT 数据稀缺（五步管线放大语料质量而非堆量）</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>React 19</span>
+        <span>Vite 7</span>
+        <span>Tailwind 3.4</span>
+        <span>shadcn/ui</span>
+        <span>Node.js</span>
+        <span>Express</span>
+        <span>TypeScript</span>
+        <span>SQLite</span>
+        <span>JWT</span>
+        <span>GLM-4-9B-Chat</span>
+        <span>Unsloth</span>
+        <span>LoRA</span>
+        <span>TRL</span>
+        <span>vLLM</span>
+        <span>Nginx</span>
+        <span>PM2</span>
+        <span>腾讯云</span>
+      </div>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="ph">截图整理中，敬请期待</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>

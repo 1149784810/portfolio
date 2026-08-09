@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>战争警戒（WarAlert） — 联机竞技 RTS · 移动端 / PC 端</title>
+<meta name="description" content="从项目立项初期参与开发、持续到上线稳定运营的联机竞技 RTS。作为项目核心负责人之一，几乎参与了项目的每个部分：表现层、">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">REAL-TIME STRATEGY · 联机竞技 RTS</div>
+    <h1>战争警戒（WarAlert）<span class="grad"> · 联机竞技 RTS · 移动端 / PC 端</span></h1>
+    <div class="meta-row">
+      <span class="chip">移动端 2022.07.16 - 2024.08.25 ｜ PC端 2025.07.10 - 2026.02.10</span>
+        <span class="chip accent">项目核心负责人之一</span>
+        <span class="chip">虚幻引擎 / C++ / 帧同步</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="links">
+    <div class="wrap">
+      <h2>链接</h2>
+      <div class="link-list">
+        <div class="link-item"><a href="https://space.bilibili.com/3546679032678620" target="_blank" rel="noopener">移动端游戏主页（B站）</a></div>
+        <div class="link-item"><a href="https://space.bilibili.com/3546938527975850" target="_blank" rel="noopener">PC端游戏主页（B站）</a></div>
+      </div>
+    </div>
+  </section>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">从项目立项初期参与开发、持续到上线稳定运营的联机竞技 RTS。作为项目核心负责人之一，几乎参与了项目的每个部分：表现层、逻辑层、服务器、图形材质，并带队完成移动端与 PC 端的性能优化。</p>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>移动端（2022.07.16 - 2024.08.25）</h3>
+          <ul>
+          <li>负责表现层、逻辑层、服务器、图形材质等多条业务线的设计与实现</li>
+          <li>参与搭建并完善战斗层原生 C++ 帧同步框架：固定步长逻辑帧 + 输入指令队列驱动，配合定点数计算保证多端对战的一致性与确定性</li>
+          <li>负责项目早期的移动端打包流程与 SDK 接入</li>
+          <li>使用 KDTree 重构底层碰撞查询，显著降低大规模单位同屏下的查询开销</li>
+          <li>参考虚幻 GAS 在逻辑层实现技能系统，技能行为与数值效果分层设计，支持策划配置扩展</li>
+          <li>实现战斗 UI 系统、录像观战系统以及各类外围活动系统（客户端与服务器双端，覆盖大厅、匹配、活动等）</li>
+          <li>开发一套完整的教程关卡编辑器，策划通过拖拽即可编排教学流程，显著降低教程关卡制作成本</li>
+          <li>实现各类项目优化工具与资产管理系统，将移动端包体由 4.7G 优化到 1.2G</li>
+          <li>通过 AnimProxy 优化虚幻动画多线程计算、全面检查优化材质复杂度、降低动画和骨骼的计算复杂度、简化逻辑帧计算复杂度，实现 RTS 游戏在移动端中高画质下 60FPS 畅玩</li>
+          <li>使用 C# 与 WPF 开发可视化压力测试工具，模拟大量玩家并发进入大厅与匹配战斗，在项目测试前完成服务器压力测试</li>
+          <li>解决线上 iOS 系统视频无法播放的问题和内存泄露触发 OOM 导致游戏崩溃的问题</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div class="work-body">
+          <h3>PC端（2025.07.10 - 2026.02.10）</h3>
+          <ul>
+          <li>协助团队将移动端由虚幻 4 升级迁移至虚幻 5，处理引擎升级带来的代码、资源与插件兼容问题</li>
+          <li>成立游戏优化组，带领团队成员开展 GPU 渲染（DrawCall、材质与着色器复杂度）与游戏线程（动画、逻辑帧）的性能优化</li>
+          <li>在公司内部开设技术课堂，系统性加速新人程序员熟悉项目架构与开发流程</li>
+          <li>为研发组提供技术支持，包括丧尸模式的顶点动画以及 ECS 相关框架的研究</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>虚幻引擎（UE4/UE5）</span>
+        <span>C++</span>
+        <span>C#</span>
+        <span>帧同步</span>
+        <span>GAS 技能系统</span>
+        <span>KDTree</span>
+        <span>AnimProxy</span>
+        <span>WPF 压测工具</span>
+        <span>SDK 接入</span>
+        <span>UE5 移植</span>
+        <span>DrawCall 优化</span>
+      </div>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="ph">截图整理中，敬请期待</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>

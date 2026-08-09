@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神选者（The Chosen One） — 支持联机的恶魔城</title>
+<meta name="description" content="与朋友合作开发的联机动作恶魔城游戏（朋友负责像素美术，本人负责客户端和服务器程序），采用 Unity 开发，支持多人联机">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">INDIE GAME · 独立游戏开发</div>
+    <h1>神选者（The Chosen One）<span class="grad"> · 支持联机的恶魔城</span></h1>
+    <div class="meta-row">
+      <span class="chip">2023.09.10 - 2026.01.10</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">Unity / C#</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="links">
+    <div class="wrap">
+      <h2>链接</h2>
+      <div class="link-list">
+        <div class="link-item"><a href="https://space.bilibili.com/433695963" target="_blank" rel="noopener">游戏视频（B站）</a></div>
+      </div>
+    </div>
+  </section>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">与朋友合作开发的联机动作恶魔城游戏（朋友负责像素美术，本人负责客户端和服务器程序），采用 Unity 开发，支持多人联机对战。</p>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>核心工作</h3>
+          <ul>
+          <li>采用类似状态帧同步的设计，实现死亡回溯等效果，并具备状态同步的数据快照特性，加入其他玩家世界时可瞬间加载</li>
+          <li>支持多人联机、死亡回溯与技能系统的完整战斗循环</li>
+          <li>实现一套基于 Timeline 的复杂动作系统和技能系统，支持特定帧拥有状态 Buff 或产生碰撞体造成伤害，导出数据支持客户端预测和服务器逻辑计算</li>
+          <li>使用 C# 原生实现一套可以双端运行的行为树 AI 框架，支持对怪物行为进行复杂配置</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>Unity</span>
+        <span>C#</span>
+        <span>状态帧同步</span>
+        <span>Timeline 动作系统</span>
+        <span>行为树 AI</span>
+      </div>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="ph">截图整理中，敬请期待</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>

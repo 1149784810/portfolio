@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>源世界平台 — 视觉小说创作与分发全栈平台</title>
+<meta name="description" content="专注视觉小说（galgame）创作与分发的平台：为创作者提供低门槛的 AI 辅助创作工具，为读者提供内容市场（一次性购买">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">FULL-STACK PLATFORM · 视觉小说创作与分发</div>
+    <h1>源世界平台<span class="grad"> · 视觉小说创作与分发全栈平台</span></h1>
+    <div class="meta-row">
+      <span class="chip">2026.04.15 - 2026.05.30</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">React / FastAPI / AI 生成</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">专注视觉小说（galgame）创作与分发的平台：为创作者提供低门槛的 AI 辅助创作工具，为读者提供内容市场（一次性购买 + 按章节订阅），含社区互动、钱包积分、支付结算、创作者收益、管理后台等完整商业闭环。</p>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>后端服务（FastAPI 模块化架构）</h3>
+          <ul>
+          <li>FastAPI 模块化后端 35+ 路由模块（认证/项目/剧情/章节/支付/订单/创作者收益/社区/搜索/存储/发布/审核/后台统计）+ 商业系统（支付 Provider 抽象、订阅与买断、积分体系、创作者分成、审计日志）</li>
+          <li>AI 生成管线接入 ComfyUI + Seedream/MiniMax/火山引擎/Holopix（文生图/图生图/语音），统一 client 抽象 + 任务队列 + 成本与 token 统计；AI 对话 Agent（agent_chat）多轮助手</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div class="work-body">
+          <h3>Web 端视觉小说游戏框架</h3>
+          <ul>
+          <li>自研互动叙事运行时（逐字显示、多角色立绘 + 表情切换、背景淡入淡出、BGM/音效独立控制）</li>
+          <li>≥10 档存档（读档完全恢复）+ 成就系统 + 故事回看 + 用户编辑（实时预览、资源替换 100% 生效）；WebGAL 打包器</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">03</div>
+        <div class="work-body">
+          <h3>前端与工程配套</h3>
+          <ul>
+          <li>剧情流程图编辑器（@xyflow/react + dagre）；React 组件体系（shadcn/ui + Ant Design 管理端）+ MetaGPT Web SDK AI 助手；市场端（分类/热度/评分筛选、购买/订阅、个人中心）</li>
+          <li>test_framework 自动化测试 + Playwright 视觉回归（全功能入口覆盖）+ 跨浏览器兼容（Chrome/Firefox/Safari/Edge 验证）；demo/tutorial 站点；AI 辅助开发流程（CLAUDE.md 规则、索引优先工作流、完成性 Review）</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>Python FastAPI</span>
+        <span>Pydantic</span>
+        <span>SQLite</span>
+        <span>React 18</span>
+        <span>Vite</span>
+        <span>TypeScript</span>
+        <span>Ant Design</span>
+        <span>shadcn/ui</span>
+        <span>Tailwind</span>
+        <span>React Query</span>
+        <span>@xyflow/react</span>
+        <span>ComfyUI</span>
+        <span>Seedream</span>
+        <span>MiniMax</span>
+        <span>火山引擎</span>
+        <span>WebGAL</span>
+        <span>Playwright</span>
+      </div>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="ph">截图整理中，敬请期待</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>
