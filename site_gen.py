@@ -284,6 +284,38 @@ PROJECTS = [
         ],
     },
     {
+        'id': 'xiantu',
+        'title': 'TheImmortal（代号：仙途）',
+        'subtitle': 'UE 5.7 仙侠卡牌对战游戏',
+        'tagline': 'GAME DEV · UE 5.7 仙侠卡牌对战',
+        'chips': [
+            ('', '2025.06.12 - 2026.02.10'),
+            ('accent', '项目负责人 + 主程序'),
+            ('', 'UE 5.7 / GAS / C++'),
+        ],
+        'intro': '基于 UE 5.7 的仙侠题材卡牌对战游戏：玩家通过打出招式/丹药/阵法/灵宠四类卡牌驱动角色战斗，具备完整的单人战斗与多人联机对战能力。采用 GAS 能力系统承载卡牌技能，自研 CustomSequence 序列框架驱动卡牌动作演出，自研 UI 框架搭建全部界面，数值体系由策划配表驱动。',
+        'groups': [
+            ('卡牌战斗系统（基于 GAS）', [
+                '以 GameplayAbilities 为核心构建技能系统（GA 技能行为、GE 属性消耗、GP 参数传递、能力投射物），技能、数值与表现分层设计，全部由 DataTable 与策划 Excel 配表驱动',
+                '招式/丹药/阵法/灵宠四类卡牌各有独立打出流程：卡牌打出走服务端 RPC（RequestPlayCard），回合推进与技能激活使用 Server Reliable RPC，攻击结果 NetMulticast 广播，保证联机对战一致',
+            ]),
+            ('自研 CustomSequence 序列系统', [
+                '基于 LevelSequence 扩展自研 ActionTrack / CustomEventTrack / SlomoTrack 三类轨道，运行时求值与执行分离',
+                '招式动画、技能事件、慢动作变速全部由序列编排：技能逻辑通过事件回调与动画解耦，配合动画通知实现打击感变速；配套全套编辑器 UI，策划可直接在编辑器编排卡牌演出',
+            ]),
+            ('角色与战斗表现 + 自研 UISystem', [
+                '战斗角色基于 GAS 属性集构建（生命、属性消耗），支持队伍阵营、武器握持与格挡开关，攻击与受击联网同步；AnimNotify 驱动攻击碰撞盒开合、慢动作变速与序列事件触发',
+                '自研页面化 UI 框架（页面栈 + 模块化页面 + 自绘控件基类），覆盖战斗界面、登录、大厅与 MainHUD（配合 CommonUI）',
+            ]),
+        ],
+        'stack': ['UE 5.7', 'C++', 'GameplayAbilities（GAS）', 'CommonUI', 'CustomSequence', 'EnhancedInput', 'Niagara VFX', 'Lumen + RTX 光线追踪', 'UMG'],
+        'gallery': None,
+        'videos': [
+            ('assets/xiantu-demo-1.mp4', '对战演示 1'),
+            ('assets/xiantu-demo-2.mp4', '对战演示 2'),
+        ],
+    },
+    {
         'id': 'waralert',
         'title': '战争警戒（WarAlert）',
         'subtitle': '联机竞技 RTS · 移动端 / PC 端',

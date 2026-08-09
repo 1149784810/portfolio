@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheImmortal（代号：仙途） — UE 5.7 仙侠卡牌对战游戏</title>
+<meta name="description" content="基于 UE 5.7 的仙侠题材卡牌对战游戏：玩家通过打出招式/丹药/阵法/灵宠四类卡牌驱动角色战斗，具备完整的单人战斗与">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">GAME DEV · UE 5.7 仙侠卡牌对战</div>
+    <h1>TheImmortal（代号：仙途）<span class="grad"> · UE 5.7 仙侠卡牌对战游戏</span></h1>
+    <div class="meta-row">
+      <span class="chip">2025.06.12 - 2026.02.10</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">UE 5.7 / GAS / C++</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">基于 UE 5.7 的仙侠题材卡牌对战游戏：玩家通过打出招式/丹药/阵法/灵宠四类卡牌驱动角色战斗，具备完整的单人战斗与多人联机对战能力。采用 GAS 能力系统承载卡牌技能，自研 CustomSequence 序列框架驱动卡牌动作演出，自研 UI 框架搭建全部界面，数值体系由策划配表驱动。</p>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="gallery">
+        <figure class="wide">
+          <video controls preload="metadata" src="../assets/xiantu-demo-1.mp4"></video>
+          <figcaption>对战演示 1</figcaption>
+        </figure>
+        <figure class="wide">
+          <video controls preload="metadata" src="../assets/xiantu-demo-2.mp4"></video>
+          <figcaption>对战演示 2</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>卡牌战斗系统（基于 GAS）</h3>
+          <ul>
+          <li>以 GameplayAbilities 为核心构建技能系统（GA 技能行为、GE 属性消耗、GP 参数传递、能力投射物），技能、数值与表现分层设计，全部由 DataTable 与策划 Excel 配表驱动</li>
+          <li>招式/丹药/阵法/灵宠四类卡牌各有独立打出流程：卡牌打出走服务端 RPC（RequestPlayCard），回合推进与技能激活使用 Server Reliable RPC，攻击结果 NetMulticast 广播，保证联机对战一致</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div class="work-body">
+          <h3>自研 CustomSequence 序列系统</h3>
+          <ul>
+          <li>基于 LevelSequence 扩展自研 ActionTrack / CustomEventTrack / SlomoTrack 三类轨道，运行时求值与执行分离</li>
+          <li>招式动画、技能事件、慢动作变速全部由序列编排：技能逻辑通过事件回调与动画解耦，配合动画通知实现打击感变速；配套全套编辑器 UI，策划可直接在编辑器编排卡牌演出</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">03</div>
+        <div class="work-body">
+          <h3>角色与战斗表现 + 自研 UISystem</h3>
+          <ul>
+          <li>战斗角色基于 GAS 属性集构建（生命、属性消耗），支持队伍阵营、武器握持与格挡开关，攻击与受击联网同步；AnimNotify 驱动攻击碰撞盒开合、慢动作变速与序列事件触发</li>
+          <li>自研页面化 UI 框架（页面栈 + 模块化页面 + 自绘控件基类），覆盖战斗界面、登录、大厅与 MainHUD（配合 CommonUI）</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>UE 5.7</span>
+        <span>C++</span>
+        <span>GameplayAbilities（GAS）</span>
+        <span>CommonUI</span>
+        <span>CustomSequence</span>
+        <span>EnhancedInput</span>
+        <span>Niagara VFX</span>
+        <span>Lumen + RTX 光线追踪</span>
+        <span>UMG</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure[data-src]'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>
