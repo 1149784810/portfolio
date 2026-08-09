@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamWorld（梦境世界） — 基于 The Bazaar 的卡牌战斗复刻（UE 5.7）</title>
+<meta name="description" content="以海外卡牌游戏 The Bazaar（官方数据库 bazaardb.gg）为蓝本的卡牌战斗客户端复刻项目：10 格棋盘自">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">GAME ENGINE · 自研 GAS 能力系统 × 卡牌对战</div>
+    <h1>DreamWorld（梦境世界）<span class="grad"> · 基于 The Bazaar 的卡牌战斗复刻（UE 5.7）</span></h1>
+    <div class="meta-row">
+      <span class="chip"><span class="dot"></span>进行中 · 2026.07.01 - 至今</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">UE 5.7 / C++20 / 纯 C++ 逻辑核心</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">以海外卡牌游戏 The Bazaar（官方数据库 bazaardb.gg）为蓝本的卡牌战斗客户端复刻项目：10 格棋盘自动对战、商店经济、附魔与冒险模式。自研了一套仿 UE GAS 的能力系统（BattleCore），采用「纯 C++ 逻辑核心 + UE 表现层 + 独立测试工程」三层架构——BattleCore 不依赖任何 UE 头文件，可独立编译运行秒级回归测试；战斗全程确定性随机，同种子同结果，可复现可验证。</p>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="gallery">
+        <figure class="wide">
+          <video controls preload="metadata" src="../assets/dreamworld-demo.mp4"></video>
+          <figcaption>对战演示视频</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>自研 GAS 能力系统（BattleCore）</h3>
+          <ul>
+          <li>以 ASC / Effect / Ability / Tag 四概念为骨架：Effect 支持即时/持续/永久三种策略与概率、暴击、标签、生效条件等修饰，Ability 通过事件订阅与门控触发并执行步骤序列，Tag 为分层标签树支持组合查询</li>
+          <li>附魔、剧毒、灼烧等机制全部用量值规格参数化表达（5 种取值来源 + 二元组合运算），自定义结算钩子按名注册；战斗使用种子平方迭代随机数 + 帧末批量事件派发，保证同种子同结果</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div class="work-body">
+          <h3>战斗引擎</h3>
+          <ul>
+          <li>FRuntimeBattle 单场战斗状态机：事件排空 → ASC 结算（DOT/冷却/阈值监听）→ 技能激活 → 快照刷新 → 胜负判定五步主循环；FBattleEngine 负责 8 人吃鸡的天/小时/金币/胜场跨场次管理</li>
+          <li>商店经济系统（购买/出售/附魔/升阶/货架，商品本身也是 ASC），战斗快照轮询 + 回调推送，逻辑与表现单向解耦</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">03</div>
+        <div class="work-body">
+          <h3>双卡实例架构与数据驱动</h3>
+          <ul>
+          <li>卡牌定义/持久实例/战斗内实例三层结构，跨战斗保留成长数据；6 张 CSV 表按依赖顺序加载，13 种附魔、5 级稀有度、3 英雄体系</li>
+          <li>100+ 卡牌数据严格对照官方 bazaardb 逐项实现</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">04</div>
+        <div class="work-body">
+          <h3>独立测试工程（BattleTest）</h3>
+          <ul>
+          <li>不依赖 UE 的独立 MSBuild 工程编译同一份 BattleCore 源码，秒级构建与运行；每个卡牌与子系统一个测试文件（25 组选择器）表驱动分发，用精确计数验证次数敏感机制，以官方数据为准逐项核对</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">05</div>
+        <div class="work-body">
+          <h3>UE 表现层与 UI + 配套工程</h3>
+          <ul>
+          <li>BattleView 表现层（GameMode + 战斗页面 + 资产异步加载），页面化 UI 框架，UMG 拖拽落子；冒险模式含天/小时表盘、金币利息与三选一/四选一事件面板；ImGui 调试面板</li>
+          <li>Python Remote Execution 驱动编辑器批量导入卡牌贴图与资产；TCP 网络层保留（连接代理/登录流程/卡组同步）</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>UE 5.7</span>
+        <span>C++20</span>
+        <span>自研 GAS（ASC/Effect/Ability/Tag/EventBus）</span>
+        <span>CSV 数据驱动</span>
+        <span>MSBuild 独立测试工程</span>
+        <span>UMG + 自研页面框架</span>
+        <span>ImGui 调试</span>
+        <span>Python Remote Execution</span>
+        <span>TCP 网络层</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure[data-src]'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>

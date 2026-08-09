@@ -94,6 +94,7 @@ PROJECTS = [
         'stack': ['Python 3.11', 'PyTorch', 'Gymnasium', 'pydantic', 'uv', 'C++17', 'pybind11', 'CMake/ninja', 'ONNX Runtime', 'DDP 分布式训练（6×RTX 5090）'],
         'gallery': [
             ('assets/rl4rts-1.jpg', '强化学习训练指标', False),
+            ('assets/rl4rts-2.jpg', '训练与评测', False),
         ],
         'videos': [
             ('assets/rl4rts-demo.mp4', '对战演示视频'),
@@ -237,6 +238,44 @@ PROJECTS = [
         'gallery': [
             ('assets/gamegodengine-1.jpg', 'Agent 流水线运行', False),
             ('assets/gamegodengine-2.jpg', '游戏开发流程', False),
+        ],
+    },
+    {
+        'id': 'dreamworld',
+        'title': 'DreamWorld（梦境世界）',
+        'subtitle': '基于 The Bazaar 的卡牌战斗复刻（UE 5.7）',
+        'tagline': 'GAME ENGINE · 自研 GAS 能力系统 × 卡牌对战',
+        'chips': [
+            ('dot', '进行中 · 2026.07.01 - 至今'),
+            ('accent', '项目负责人 + 主程序'),
+            ('', 'UE 5.7 / C++20 / 纯 C++ 逻辑核心'),
+        ],
+        'intro': '以海外卡牌游戏 The Bazaar（官方数据库 bazaardb.gg）为蓝本的卡牌战斗客户端复刻项目：10 格棋盘自动对战、商店经济、附魔与冒险模式。自研了一套仿 UE GAS 的能力系统（BattleCore），采用「纯 C++ 逻辑核心 + UE 表现层 + 独立测试工程」三层架构——BattleCore 不依赖任何 UE 头文件，可独立编译运行秒级回归测试；战斗全程确定性随机，同种子同结果，可复现可验证。',
+        'groups': [
+            ('自研 GAS 能力系统（BattleCore）', [
+                '以 ASC / Effect / Ability / Tag 四概念为骨架：Effect 支持即时/持续/永久三种策略与概率、暴击、标签、生效条件等修饰，Ability 通过事件订阅与门控触发并执行步骤序列，Tag 为分层标签树支持组合查询',
+                '附魔、剧毒、灼烧等机制全部用量值规格参数化表达（5 种取值来源 + 二元组合运算），自定义结算钩子按名注册；战斗使用种子平方迭代随机数 + 帧末批量事件派发，保证同种子同结果',
+            ]),
+            ('战斗引擎', [
+                'FRuntimeBattle 单场战斗状态机：事件排空 → ASC 结算（DOT/冷却/阈值监听）→ 技能激活 → 快照刷新 → 胜负判定五步主循环；FBattleEngine 负责 8 人吃鸡的天/小时/金币/胜场跨场次管理',
+                '商店经济系统（购买/出售/附魔/升阶/货架，商品本身也是 ASC），战斗快照轮询 + 回调推送，逻辑与表现单向解耦',
+            ]),
+            ('双卡实例架构与数据驱动', [
+                '卡牌定义/持久实例/战斗内实例三层结构，跨战斗保留成长数据；6 张 CSV 表按依赖顺序加载，13 种附魔、5 级稀有度、3 英雄体系',
+                '100+ 卡牌数据严格对照官方 bazaardb 逐项实现',
+            ]),
+            ('独立测试工程（BattleTest）', [
+                '不依赖 UE 的独立 MSBuild 工程编译同一份 BattleCore 源码，秒级构建与运行；每个卡牌与子系统一个测试文件（25 组选择器）表驱动分发，用精确计数验证次数敏感机制，以官方数据为准逐项核对',
+            ]),
+            ('UE 表现层与 UI + 配套工程', [
+                'BattleView 表现层（GameMode + 战斗页面 + 资产异步加载），页面化 UI 框架，UMG 拖拽落子；冒险模式含天/小时表盘、金币利息与三选一/四选一事件面板；ImGui 调试面板',
+                'Python Remote Execution 驱动编辑器批量导入卡牌贴图与资产；TCP 网络层保留（连接代理/登录流程/卡组同步）',
+            ]),
+        ],
+        'stack': ['UE 5.7', 'C++20', '自研 GAS（ASC/Effect/Ability/Tag/EventBus）', 'CSV 数据驱动', 'MSBuild 独立测试工程', 'UMG + 自研页面框架', 'ImGui 调试', 'Python Remote Execution', 'TCP 网络层'],
+        'gallery': None,
+        'videos': [
+            ('assets/dreamworld-demo.mp4', '对战演示视频'),
         ],
     },
     {
