@@ -36,12 +36,39 @@
       </div>
     </div>
   </section>
-  <section id="pdf">
+  <section id="slides">
     <div class="wrap">
-      <h2>培训 PPT 预览</h2>
-      <iframe class="pdf-frame" src="../assets/waralert-training.pdf" title="培训 PPT"></iframe>
+      <h2>培训 PPT</h2>
+      <div class="slide-viewer">
+        <button class="slide-nav" id="slidePrev" aria-label="上一页">‹</button>
+        <div class="slide-stage"><img id="slideImg" src="../assets/training-slides/slide-01.jpg" alt="PPT 第 1 页"></div>
+        <button class="slide-nav" id="slideNext" aria-label="下一页">›</button>
+      </div>
+      <div class="slide-meta" id="slideCount">1 / 44</div>
     </div>
   </section>
+<script>
+(function () {
+  var total = 44;
+  var cur = 1;
+  var img = document.getElementById("slideImg");
+  var count = document.getElementById("slideCount");
+  function show(n) {
+    cur = Math.max(1, Math.min(total, n));
+    img.src = "../assets/training-slides/slide-" + String(cur).padStart(2, "0") + ".jpg";
+    img.alt = "PPT 第 " + cur + " 页";
+    count.textContent = cur + " / " + total;
+  }
+  document.getElementById("slidePrev").addEventListener("click", function () { show(cur - 1); });
+  document.getElementById("slideNext").addEventListener("click", function () { show(cur + 1); });
+  document.addEventListener("keydown", function (e) {
+    var lb = document.getElementById("lightbox");
+    if (lb && lb.classList.contains("open")) return;
+    if (e.key === "ArrowLeft") show(cur - 1);
+    if (e.key === "ArrowRight") show(cur + 1);
+  });
+})();
+</script>
   <section id="intro">
     <div class="wrap">
       <h2>项目简介</h2>

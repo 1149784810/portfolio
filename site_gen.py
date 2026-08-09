@@ -323,7 +323,7 @@ PROJECTS = [
         'links': [
             ('培训 PPT 下载（pptx）', '../assets/waralert-training.pptx'),
         ],
-        'pdf': '../assets/waralert-training.pdf',
+        'slides': 44,
         'intro': '作为主要负责人，为 WarAlert 项目的新程序员进行编码规范讲解与程序优化培训：覆盖代码风格与工程规范、性能优化方法论、常见性能陷阱与排查手段等，帮助新人快速达到项目编码与优化标准。',
         'groups': [
             ('培训内容', [
@@ -506,6 +506,40 @@ def project_page(p):
         sections.append(
             '  <section id="pdf">\n    <div class="wrap">\n      <h2>培训 PPT 预览</h2>\n'
             '      <iframe class="pdf-frame" src="%s" title="培训 PPT"></iframe>\n    </div>\n  </section>' % p['pdf'])
+    # PPT 翻页查看器
+    if p.get('slides'):
+        n = p['slides']
+        sections.append(
+            '  <section id="slides">\n    <div class="wrap">\n      <h2>培训 PPT</h2>\n'
+            '      <div class="slide-viewer">\n'
+            '        <button class="slide-nav" id="slidePrev" aria-label="上一页">‹</button>\n'
+            '        <div class="slide-stage"><img id="slideImg" src="../assets/training-slides/slide-01.jpg" alt="PPT 第 1 页"></div>\n'
+            '        <button class="slide-nav" id="slideNext" aria-label="下一页">›</button>\n'
+            '      </div>\n'
+            '      <div class="slide-meta" id="slideCount">1 / %d</div>\n'
+            '    </div>\n  </section>\n'
+            '<script>\n'
+            '(function () {\n'
+            '  var total = %d;\n'
+            '  var cur = 1;\n'
+            '  var img = document.getElementById("slideImg");\n'
+            '  var count = document.getElementById("slideCount");\n'
+            '  function show(n) {\n'
+            '    cur = Math.max(1, Math.min(total, n));\n'
+            '    img.src = "../assets/training-slides/slide-" + String(cur).padStart(2, "0") + ".jpg";\n'
+            '    img.alt = "PPT 第 " + cur + " 页";\n'
+            '    count.textContent = cur + " / " + total;\n'
+            '  }\n'
+            '  document.getElementById("slidePrev").addEventListener("click", function () { show(cur - 1); });\n'
+            '  document.getElementById("slideNext").addEventListener("click", function () { show(cur + 1); });\n'
+            '  document.addEventListener("keydown", function (e) {\n'
+            '    var lb = document.getElementById("lightbox");\n'
+            '    if (lb && lb.classList.contains("open")) return;\n'
+            '    if (e.key === "ArrowLeft") show(cur - 1);\n'
+            '    if (e.key === "ArrowRight") show(cur + 1);\n'
+            '  });\n'
+            '})();\n'
+            '</script>' % (n, n))
     # 简介
     intro = p.get('intro', '')
     goal = p.get('goal')

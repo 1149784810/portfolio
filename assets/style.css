@@ -214,3 +214,19 @@ footer { border-top: 1px solid var(--border); padding: 28px 0 40px; text-align: 
   width: 100%; height: 72vh; border-radius: 12px;
   border: 1px solid var(--border); background: #fff;
 }
+
+/* PPT 翻页查看器 */
+.slide-viewer { display: flex; align-items: center; gap: 12px; }
+.slide-stage {
+  flex: 1; border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden; background: #0d1420;
+}
+.slide-stage img { width: 100%; display: block; }
+.slide-nav {
+  flex: 0 0 42px; height: 42px; border-radius: 50%;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+  color: #fff; font-size: 22px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; user-select: none;
+}
+.slide-nav:hover { background: rgba(255,255,255,0.14); }
+.slide-meta { text-align: center; color: var(--muted); font-size: 13px; margin-top: 10px; }
