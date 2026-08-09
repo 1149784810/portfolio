@@ -140,7 +140,12 @@ PROJECTS = [
             ]),
         ],
         'stack': ['React 19', 'Vite 7', 'Tailwind 3.4', 'shadcn/ui', 'Node.js', 'Express', 'TypeScript', 'SQLite', 'JWT', 'GLM-4-9B-Chat', 'Unsloth', 'LoRA', 'TRL', 'vLLM', 'Nginx', 'PM2', '腾讯云'],
-        'gallery': None,
+        'gallery': [
+            ('assets/hanhang-1.jpg', '项目截图 1', False),
+            ('assets/hanhang-2.jpg', '项目截图 2', False),
+            ('assets/hanhang-3.jpg', '项目截图 3', False),
+            ('assets/hanhang-4.jpg', '项目截图 4', False),
+        ],
     },
     {
         'id': 'yuan',
