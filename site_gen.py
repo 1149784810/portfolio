@@ -690,14 +690,18 @@ def project_page(p):
 
 def index_page():
     cards = []
+    type_class = {
+        '游戏': 't-game', 'AI+游戏': 't-ai-game', 'AI应用': 't-ai-app',
+        '校园项目': 't-campus', '培训': 't-training',
+    }
     for p in PROJECTS:
         cards.append(
             '        <a class="proj-card" href="projects/%s.html">\n'
-            '          <div class="proj-type">%s</div>\n'
+            '          <div class="proj-type %s">%s</div>\n'
             '          <div class="proj-name">%s</div>\n'
             '          <div class="proj-desc">%s</div>\n'
             '          <div class="proj-tag">查看详情 →</div>\n'
-            '        </a>' % (p['id'], p.get('type', '项目'), p['title'], p['subtitle']))
+            '        </a>' % (p['id'], type_class.get(p.get('type', ''), ''), p.get('type', '项目'), p['title'], p['subtitle']))
     return '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
