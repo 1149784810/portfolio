@@ -310,10 +310,6 @@ PROJECTS = [
         ],
         'stack': ['UE 5.7', 'C++', 'GameplayAbilities（GAS）', 'CommonUI', 'CustomSequence', 'EnhancedInput', 'Niagara VFX', 'Lumen + RTX 光线追踪', 'UMG'],
         'gallery': None,
-        'videos': [
-            ('assets/xiantu-demo-1.mp4', '对战演示 1'),
-            ('assets/xiantu-demo-2.mp4', '对战演示 2'),
-        ],
     },
     {
         'id': 'waralert',
