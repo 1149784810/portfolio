@@ -449,7 +449,9 @@ PROJECTS = [
             ]),
         ],
         'stack': ['JavaScript', 'Java', '腾讯云开发', '微信小程序', '实地需求调研'],
-        'gallery': None,
+        'gallery': [
+            ('assets/qinghai-1.jpg', '大学期间赴敦煌实地考察时拍摄', False),
+        ],
     },
 
 ]
