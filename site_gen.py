@@ -196,6 +196,38 @@ PROJECTS = [
         'gallery': None,
     },
     {
+        'id': 'gamegodengine',
+        'title': 'GameGodEngine',
+        'subtitle': 'AI 游戏开发 Agent',
+        'tagline': 'AI GAME DEV AGENT · 用自然语言开发游戏',
+        'chips': [
+            ('accent', '个人项目'),
+            ('', 'Python / LangGraph / ReAct Agent'),
+        ],
+        'intro': '输入一句游戏创意，由多角色 AI Agent 协作完成从设计、编码、测试到部署的完整游戏开发流程：主策划 + 子策划产出设计文档与任务拆解，主程 + 子程编写代码，测试 Agent 自动验证，失败自动进入修复循环，全部通过后打包部署。',
+        'groups': [
+            ('ReAct Agent 基座', [
+                '基于 LangChain 实现推理-行动（Reasoning-Acting）循环 Agent，支持流式输出与多会话记忆管理',
+                '工具系统：read_file / write_file / list_files 等文件操作工具，通过统一 Tool 基类扩展',
+                'LLM 接入 Moonshot（Kimi）模型，支持对话历史管理与记忆清理',
+            ]),
+            ('LangGraph 多角色游戏开发流水线', [
+                '以 StateGraph 编排完整开发流程：lead_designer → sub_designer（策划）→ lead_programmer → sub_programmer（编码）→ tester（测试）→ deploy（部署）',
+                '条件边驱动修复循环：测试未通过自动进入 fix_bugs 节点，修复后回到测试，全部通过才进入部署',
+                '流水线输入游戏创意（如"开发一款极简连连看"），输出游戏设计文档、任务列表、技术栈、代码仓库、测试报告与构建产物',
+            ]),
+            ('交互与端到端验证', [
+                '交互式 CLI：支持流式对话、清除记忆、查看历史、一键触发完整游戏开发流程',
+                '端到端测试：输入创意 → 完整流水线执行 → 产出可运行游戏代码',
+            ]),
+        ],
+        'stack': ['Python', 'LangChain', 'LangGraph', 'ReAct Agent', 'Moonshot AI（Kimi）', '文件工具系统', 'StateGraph 状态机'],
+        'gallery': [
+            ('assets/gamegodengine-1.jpg', 'Agent 流水线运行', False),
+            ('assets/gamegodengine-2.jpg', '游戏开发流程', False),
+        ],
+    },
+    {
         'id': 'waralert',
         'title': '战争警戒（WarAlert）',
         'subtitle': '联机竞技 RTS · 移动端 / PC 端',
