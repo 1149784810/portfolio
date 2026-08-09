@@ -12,6 +12,47 @@ os.makedirs(PROJ_DIR, exist_ok=True)
 # ───────────────────────── 项目数据 ─────────────────────────
 PROJECTS = [
     {
+        'id': 'waralert',
+        'title': '战争警戒（WarAlert）',
+        'subtitle': '联机竞技 RTS · 移动端 / PC 端',
+        'tagline': 'REAL-TIME STRATEGY · 联机竞技 RTS',
+        'chips': [
+            ('', '移动端 2022.07.16 - 2025.06.20 ｜ PC端 2025.07.10 - 2026.02.10'),
+            ('accent', '项目核心负责人之一'),
+            ('', '虚幻引擎 / C++ / 帧同步'),
+        ],
+        'links': [
+            ('移动端游戏主页（B站）', 'https://space.bilibili.com/3546679032678620'),
+            ('PC端游戏主页（B站）', 'https://space.bilibili.com/3546938527975850'),
+        ],
+        'intro': '这是移动端 RTS 中可以排到第一位的游戏，在 RTS 手游领域没有对手。从项目立项初期参与开发、持续到上线稳定运营，作为项目核心负责人之一，几乎参与了项目的每个部分：表现层、逻辑层、服务器、图形材质，并带队完成移动端与 PC 端的性能优化。',
+        'groups': [
+            ('移动端（2022.07.16 - 2025.06.20）', [
+                '负责表现层、逻辑层、服务器、图形材质等多条业务线的设计与实现',
+                '参与搭建并完善战斗层原生 C++ 帧同步框架：固定步长逻辑帧 + 输入指令队列驱动，配合定点数计算保证多端对战的一致性与确定性',
+                '负责项目早期的移动端打包流程与 SDK 接入',
+                '使用 KDTree 重构底层碰撞查询，显著降低大规模单位同屏下的查询开销',
+                '参考虚幻 GAS 在逻辑层实现技能系统，技能行为与数值效果分层设计，支持策划配置扩展',
+                '实现战斗 UI 系统、录像观战系统以及各类外围活动系统（客户端与服务器双端，覆盖大厅、匹配、活动等）',
+                '开发一套完整的教程关卡编辑器，策划通过拖拽即可编排教学流程，显著降低教程关卡制作成本',
+                '实现各类项目优化工具与资产管理系统，将移动端包体由 4.7G 优化到 1.2G',
+                '通过 AnimProxy 优化虚幻动画多线程计算、全面检查优化材质复杂度、降低动画和骨骼的计算复杂度、简化逻辑帧计算复杂度，实现 RTS 游戏在移动端中高画质下 60FPS 畅玩',
+                '使用 C# 与 WPF 开发可视化压力测试工具，模拟大量玩家并发进入大厅与匹配战斗，在项目测试前完成服务器压力测试',
+                '解决线上 iOS 系统视频无法播放的问题和内存泄露触发 OOM 导致游戏崩溃的问题',
+            ]),
+            ('PC端（2025.07.10 - 2026.02.10）', [
+                '协助团队将移动端由虚幻 4 升级迁移至虚幻 5，处理引擎升级带来的代码、资源与插件兼容问题',
+                '成立游戏优化组，带领团队成员开展 GPU 渲染（DrawCall、材质与着色器复杂度）与游戏线程（动画、逻辑帧）的性能优化',
+                '在公司内部开设技术课堂，系统性加速新人程序员熟悉项目架构与开发流程',
+                '为研发组提供技术支持，包括丧尸模式的顶点动画以及 ECS 相关框架的研究',
+            ]),
+        ],
+        'stack': ['虚幻引擎（UE4/UE5）', 'C++', 'C#', '帧同步', 'GAS 技能系统', 'KDTree', 'AnimProxy', 'WPF 压测工具', 'SDK 接入', 'UE5 移植', 'DrawCall 优化'],
+        'gallery': [
+            ('assets/waralert-1.jpg', '游戏截图', False),
+        ],
+    },
+    {
         'id': 'unrealgenai',
         'title': 'UnrealGenAI',
         'subtitle': 'AI 驱动虚幻引擎游戏开发',
@@ -335,45 +376,6 @@ PROJECTS = [
         'gallery': None,
     },
     {
-        'id': 'waralert',
-        'title': '战争警戒（WarAlert）',
-        'subtitle': '联机竞技 RTS · 移动端 / PC 端',
-        'tagline': 'REAL-TIME STRATEGY · 联机竞技 RTS',
-        'chips': [
-            ('', '移动端 2022.07.16 - 2025.06.20 ｜ PC端 2025.07.10 - 2026.02.10'),
-            ('accent', '项目核心负责人之一'),
-            ('', '虚幻引擎 / C++ / 帧同步'),
-        ],
-        'links': [
-            ('移动端游戏主页（B站）', 'https://space.bilibili.com/3546679032678620'),
-            ('PC端游戏主页（B站）', 'https://space.bilibili.com/3546938527975850'),
-        ],
-        'intro': '从项目立项初期参与开发、持续到上线稳定运营的联机竞技 RTS。作为项目核心负责人之一，几乎参与了项目的每个部分：表现层、逻辑层、服务器、图形材质，并带队完成移动端与 PC 端的性能优化。',
-        'groups': [
-            ('移动端（2022.07.16 - 2025.06.20）', [
-                '负责表现层、逻辑层、服务器、图形材质等多条业务线的设计与实现',
-                '参与搭建并完善战斗层原生 C++ 帧同步框架：固定步长逻辑帧 + 输入指令队列驱动，配合定点数计算保证多端对战的一致性与确定性',
-                '负责项目早期的移动端打包流程与 SDK 接入',
-                '使用 KDTree 重构底层碰撞查询，显著降低大规模单位同屏下的查询开销',
-                '参考虚幻 GAS 在逻辑层实现技能系统，技能行为与数值效果分层设计，支持策划配置扩展',
-                '实现战斗 UI 系统、录像观战系统以及各类外围活动系统（客户端与服务器双端，覆盖大厅、匹配、活动等）',
-                '开发一套完整的教程关卡编辑器，策划通过拖拽即可编排教学流程，显著降低教程关卡制作成本',
-                '实现各类项目优化工具与资产管理系统，将移动端包体由 4.7G 优化到 1.2G',
-                '通过 AnimProxy 优化虚幻动画多线程计算、全面检查优化材质复杂度、降低动画和骨骼的计算复杂度、简化逻辑帧计算复杂度，实现 RTS 游戏在移动端中高画质下 60FPS 畅玩',
-                '使用 C# 与 WPF 开发可视化压力测试工具，模拟大量玩家并发进入大厅与匹配战斗，在项目测试前完成服务器压力测试',
-                '解决线上 iOS 系统视频无法播放的问题和内存泄露触发 OOM 导致游戏崩溃的问题',
-            ]),
-            ('PC端（2025.07.10 - 2026.02.10）', [
-                '协助团队将移动端由虚幻 4 升级迁移至虚幻 5，处理引擎升级带来的代码、资源与插件兼容问题',
-                '成立游戏优化组，带领团队成员开展 GPU 渲染（DrawCall、材质与着色器复杂度）与游戏线程（动画、逻辑帧）的性能优化',
-                '在公司内部开设技术课堂，系统性加速新人程序员熟悉项目架构与开发流程',
-                '为研发组提供技术支持，包括丧尸模式的顶点动画以及 ECS 相关框架的研究',
-            ]),
-        ],
-        'stack': ['虚幻引擎（UE4/UE5）', 'C++', 'C#', '帧同步', 'GAS 技能系统', 'KDTree', 'AnimProxy', 'WPF 压测工具', 'SDK 接入', 'UE5 移植', 'DrawCall 优化'],
-        'gallery': None,
-    },
-    {
         'id': 'shenxuan',
         'title': '神选者（The Chosen One）',
         'subtitle': '支持联机的恶魔城',
@@ -423,7 +425,33 @@ PROJECTS = [
             ('assets/chd-1.jpg', '校内科创比赛', False),
             ('assets/chd-2.jpg', '校内科创比赛', False),
         ],
+    },    {
+        'id': 'qinghai',
+        'title': '青海物探处项目',
+        'subtitle': '甘肃青海物探处工程管理程序',
+        'tagline': 'FIELD PROJECT · 实地调研交付的工程管理程序',
+        'chips': [
+            ('', '2018.09.01 - 2022.06.22（大学期间）'),
+            ('accent', '项目负责人 + 主程序'),
+            ('', '实地调查一周 / 4 个月交付'),
+        ],
+        'links': [
+            ('项目汇报 PPT 下载（pptx）', '../assets/qinghai-report.pptx'),
+        ],
+        'slides': 17,
+        'slides_path': '../assets/qinghai-slides',
+        'intro': '为甘肃青海物探处定制的工程管理程序：前往甘肃敦煌实地调查一周，深入工程现场了解物探作业流程与人员组织架构，完成需求确认与交接后再进行开发，历时 4 个月完成项目交付。',
+        'groups': [
+            ('核心工作', [
+                '项目分为前台与后台两大部分：后台可配置成员身份、成员权限、所属项目、表单权限等属性，动态为前台分配工作内容',
+                '前台员工登录小程序后仅能查看所属项目及被授权的功能，并可依据后台定制内容填写动态表单',
+                '通过实际交流与参与深入理解用户需求，提升需求沟通与转化能力',
+            ]),
+        ],
+        'stack': ['JavaScript', 'Java', '腾讯云开发', '微信小程序', '实地需求调研'],
+        'gallery': None,
     },
+
 ]
 
 # ───────────────────────── 页面模板 ─────────────────────────
@@ -509,11 +537,12 @@ def project_page(p):
     # PPT 翻页查看器
     if p.get('slides'):
         n = p['slides']
+        slides_path = p.get('slides_path', '../assets/training-slides')
         sections.append(
-            '  <section id="slides">\n    <div class="wrap">\n      <h2>培训 PPT</h2>\n'
+            '  <section id="slides">\n    <div class="wrap">\n      <h2>项目汇报 PPT</h2>\n'
             '      <div class="slide-viewer">\n'
             '        <button class="slide-nav" id="slidePrev" aria-label="上一页">‹</button>\n'
-            '        <div class="slide-stage"><img id="slideImg" src="../assets/training-slides/slide-01.jpg" alt="PPT 第 1 页"></div>\n'
+            '        <div class="slide-stage"><img id="slideImg" src="%s/slide-01.jpg" alt="PPT 第 1 页"></div>\n'
             '        <button class="slide-nav" id="slideNext" aria-label="下一页">›</button>\n'
             '      </div>\n'
             '      <div class="slide-meta" id="slideCount">1 / %d</div>\n'
@@ -526,7 +555,7 @@ def project_page(p):
             '  var count = document.getElementById("slideCount");\n'
             '  function show(n) {\n'
             '    cur = Math.max(1, Math.min(total, n));\n'
-            '    img.src = "../assets/training-slides/slide-" + String(cur).padStart(2, "0") + ".jpg";\n'
+            '    img.src = "%s/slide-" + String(cur).padStart(2, "0") + ".jpg";\n'
             '    img.alt = "PPT 第 " + cur + " 页";\n'
             '    count.textContent = cur + " / " + total;\n'
             '  }\n'
@@ -539,7 +568,7 @@ def project_page(p):
             '    if (e.key === "ArrowRight") show(cur + 1);\n'
             '  });\n'
             '})();\n'
-            '</script>' % (n, n))
+            '</script>' % (slides_path, n, n, slides_path))
     # 简介
     intro = p.get('intro', '')
     goal = p.get('goal')

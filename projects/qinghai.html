@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>编码优化培训项目 — WarAlert 新人培训 · 编码规范与程序优化</title>
-<meta name="description" content="作为主要负责人，为 WarAlert 项目的新程序员进行编码规范讲解与程序优化培训：覆盖代码风格与工程规范、性能优化方法">
+<title>青海物探处项目 — 甘肃青海物探处工程管理程序</title>
+<meta name="description" content="为甘肃青海物探处定制的工程管理程序：前往甘肃敦煌实地调查一周，深入工程现场了解物探作业流程与人员组织架构，完成需求确认与">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -18,11 +18,12 @@
 
 <header class="hero hero-sm">
   <div class="wrap">
-    <div class="tagline">TRAINING · 新人编码规范与优化培训</div>
-    <h1>编码优化培训项目<span class="grad"> · WarAlert 新人培训 · 编码规范与程序优化</span></h1>
+    <div class="tagline">FIELD PROJECT · 实地调研交付的工程管理程序</div>
+    <h1>青海物探处项目<span class="grad"> · 甘肃青海物探处工程管理程序</span></h1>
     <div class="meta-row">
-      <span class="chip accent">主要负责人</span>
-        <span class="chip">编码规范 / 程序优化 / 新人培训</span>
+      <span class="chip">2018.09.01 - 2022.06.22（大学期间）</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">实地调查一周 / 4 个月交付</span>
     </div>
   </div>
 </header>
@@ -32,7 +33,7 @@
     <div class="wrap">
       <h2>链接</h2>
       <div class="link-list">
-        <div class="link-item"><a href="../assets/waralert-training.pptx" target="_blank" rel="noopener">培训 PPT 下载（pptx）</a></div>
+        <div class="link-item"><a href="../assets/qinghai-report.pptx" target="_blank" rel="noopener">项目汇报 PPT 下载（pptx）</a></div>
       </div>
     </div>
   </section>
@@ -41,21 +42,21 @@
       <h2>项目汇报 PPT</h2>
       <div class="slide-viewer">
         <button class="slide-nav" id="slidePrev" aria-label="上一页">‹</button>
-        <div class="slide-stage"><img id="slideImg" src="../assets/training-slides/slide-01.jpg" alt="PPT 第 1 页"></div>
+        <div class="slide-stage"><img id="slideImg" src="../assets/qinghai-slides/slide-01.jpg" alt="PPT 第 1 页"></div>
         <button class="slide-nav" id="slideNext" aria-label="下一页">›</button>
       </div>
-      <div class="slide-meta" id="slideCount">1 / 44</div>
+      <div class="slide-meta" id="slideCount">1 / 17</div>
     </div>
   </section>
 <script>
 (function () {
-  var total = 44;
+  var total = 17;
   var cur = 1;
   var img = document.getElementById("slideImg");
   var count = document.getElementById("slideCount");
   function show(n) {
     cur = Math.max(1, Math.min(total, n));
-    img.src = "../assets/training-slides/slide-" + String(cur).padStart(2, "0") + ".jpg";
+    img.src = "../assets/qinghai-slides/slide-" + String(cur).padStart(2, "0") + ".jpg";
     img.alt = "PPT 第 " + cur + " 页";
     count.textContent = cur + " / " + total;
   }
@@ -72,7 +73,7 @@
   <section id="intro">
     <div class="wrap">
       <h2>项目简介</h2>
-      <p class="intro-text">作为主要负责人，为 WarAlert 项目的新程序员进行编码规范讲解与程序优化培训：覆盖代码风格与工程规范、性能优化方法论、常见性能陷阱与排查手段等，帮助新人快速达到项目编码与优化标准。</p>
+      <p class="intro-text">为甘肃青海物探处定制的工程管理程序：前往甘肃敦煌实地调查一周，深入工程现场了解物探作业流程与人员组织架构，完成需求确认与交接后再进行开发，历时 4 个月完成项目交付。</p>
     </div>
   </section>
   <section id="work">
@@ -82,10 +83,11 @@
       <div class="work-item">
         <div class="work-num">01</div>
         <div class="work-body">
-          <h3>培训内容</h3>
+          <h3>核心工作</h3>
           <ul>
-          <li>编码规范讲解：代码风格、工程规范、常见反模式与最佳实践</li>
-          <li>程序优化培训：性能优化方法论、瓶颈定位手段、虚幻引擎项目中的实际优化案例</li>
+          <li>项目分为前台与后台两大部分：后台可配置成员身份、成员权限、所属项目、表单权限等属性，动态为前台分配工作内容</li>
+          <li>前台员工登录小程序后仅能查看所属项目及被授权的功能，并可依据后台定制内容填写动态表单</li>
+          <li>通过实际交流与参与深入理解用户需求，提升需求沟通与转化能力</li>
           </ul>
         </div>
       </div>
@@ -96,10 +98,11 @@
     <div class="wrap">
       <h2>技术栈</h2>
       <div class="stack">
-<span>编码规范</span>
-        <span>程序优化</span>
-        <span>C++ / 虚幻引擎</span>
-        <span>新人培训体系</span>
+<span>JavaScript</span>
+        <span>Java</span>
+        <span>腾讯云开发</span>
+        <span>微信小程序</span>
+        <span>实地需求调研</span>
       </div>
     </div>
   </section>
