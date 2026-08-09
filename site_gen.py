@@ -312,6 +312,29 @@ PROJECTS = [
         'gallery': None,
     },
     {
+        'id': 'training',
+        'title': '编码优化培训项目',
+        'subtitle': 'WarAlert 新人培训 · 编码规范与程序优化',
+        'tagline': 'TRAINING · 新人编码规范与优化培训',
+        'chips': [
+            ('accent', '主要负责人'),
+            ('', '编码规范 / 程序优化 / 新人培训'),
+        ],
+        'links': [
+            ('培训 PPT 下载（pptx）', '../assets/waralert-training.pptx'),
+        ],
+        'pdf': '../assets/waralert-training.pdf',
+        'intro': '作为主要负责人，为 WarAlert 项目的新程序员进行编码规范讲解与程序优化培训：覆盖代码风格与工程规范、性能优化方法论、常见性能陷阱与排查手段等，帮助新人快速达到项目编码与优化标准。',
+        'groups': [
+            ('培训内容', [
+                '编码规范讲解：代码风格、工程规范、常见反模式与最佳实践',
+                '程序优化培训：性能优化方法论、瓶颈定位手段、虚幻引擎项目中的实际优化案例',
+            ]),
+        ],
+        'stack': ['编码规范', '程序优化', 'C++ / 虚幻引擎', '新人培训体系'],
+        'gallery': None,
+    },
+    {
         'id': 'waralert',
         'title': '战争警戒（WarAlert）',
         'subtitle': '联机竞技 RTS · 移动端 / PC 端',
@@ -478,6 +501,11 @@ def project_page(p):
         sections.append(
             '  <section id="links">\n    <div class="wrap">\n      <h2>链接</h2>\n'
             '      <div class="link-list">\n%s\n      </div>\n    </div>\n  </section>' % links)
+    # PDF/PPT 预览
+    if p.get('pdf'):
+        sections.append(
+            '  <section id="pdf">\n    <div class="wrap">\n      <h2>培训 PPT 预览</h2>\n'
+            '      <iframe class="pdf-frame" src="%s" title="培训 PPT"></iframe>\n    </div>\n  </section>' % p['pdf'])
     # 简介
     intro = p.get('intro', '')
     goal = p.get('goal')

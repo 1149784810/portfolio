@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>编码优化培训项目 — WarAlert 新人培训 · 编码规范与程序优化</title>
+<meta name="description" content="作为主要负责人，为 WarAlert 项目的新程序员进行编码规范讲解与程序优化培训：覆盖代码风格与工程规范、性能优化方法">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">TRAINING · 新人编码规范与优化培训</div>
+    <h1>编码优化培训项目<span class="grad"> · WarAlert 新人培训 · 编码规范与程序优化</span></h1>
+    <div class="meta-row">
+      <span class="chip accent">主要负责人</span>
+        <span class="chip">编码规范 / 程序优化 / 新人培训</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="links">
+    <div class="wrap">
+      <h2>链接</h2>
+      <div class="link-list">
+        <div class="link-item"><a href="../assets/waralert-training.pptx" target="_blank" rel="noopener">培训 PPT 下载（pptx）</a></div>
+      </div>
+    </div>
+  </section>
+  <section id="pdf">
+    <div class="wrap">
+      <h2>培训 PPT 预览</h2>
+      <iframe class="pdf-frame" src="../assets/waralert-training.pdf" title="培训 PPT"></iframe>
+    </div>
+  </section>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">作为主要负责人，为 WarAlert 项目的新程序员进行编码规范讲解与程序优化培训：覆盖代码风格与工程规范、性能优化方法论、常见性能陷阱与排查手段等，帮助新人快速达到项目编码与优化标准。</p>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>培训内容</h3>
+          <ul>
+          <li>编码规范讲解：代码风格、工程规范、常见反模式与最佳实践</li>
+          <li>程序优化培训：性能优化方法论、瓶颈定位手段、虚幻引擎项目中的实际优化案例</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>编码规范</span>
+        <span>程序优化</span>
+        <span>C++ / 虚幻引擎</span>
+        <span>新人培训体系</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure[data-src]'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>
