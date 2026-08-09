@@ -115,6 +115,21 @@
     padding: 1px 5px; border-radius: 4px;
   }
 
+  /* 项目列表卡片 */
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 12px; }
+  .proj-card {
+    display: block; padding: 16px 18px; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    text-decoration: none; color: var(--text);
+    transition: border-color .2s, background .2s, transform .2s;
+  }
+  .proj-card:hover { border-color: rgba(74,168,216,0.5); background: var(--bg-card-hover); transform: translateY(-2px); }
+  .proj-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .proj-desc { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+  .proj-tag { font-size: 12px; }
+  .proj-card.live .proj-tag { color: var(--ok); }
+  .proj-card:not(.live) .proj-tag { color: var(--muted); }
+
   /* 截图画廊 */
   .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .gallery figure {
@@ -182,8 +197,58 @@
 </header>
 
 <main>
+  <!-- 项目列表 -->
+  <section id="projects">
+    <div class="wrap">
+      <h2>项目列表</h2>
+      <p class="sec-desc">作品集持续更新中，点击已上线项目查看详情</p>
+      <div class="proj-grid">
+        <a class="proj-card live" href="#unrealgenai">
+          <div class="proj-name">UnrealGenAI</div>
+          <div class="proj-desc">AI 驱动虚幻引擎游戏开发 · 个人项目</div>
+          <div class="proj-tag">已上线 · 查看详情 →</div>
+        </a>
+        <div class="proj-card">
+          <div class="proj-name">RL4RTS</div>
+          <div class="proj-desc">二战 RTS 游戏强化学习 Bot 训练框架 · 个人项目</div>
+          <div class="proj-tag">展示页制作中</div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-name">瀚航咨询</div>
+          <div class="proj-desc">企业咨询大模型微调与数据飞轮平台 · 企业外包</div>
+          <div class="proj-tag">展示页制作中</div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-name">源世界平台</div>
+          <div class="proj-desc">视觉小说创作与分发全栈平台</div>
+          <div class="proj-tag">展示页制作中</div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-name">萤火智创（FireflyMind）</div>
+          <div class="proj-desc">AI 辅助一人创业全流程平台</div>
+          <div class="proj-tag">展示页制作中</div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-name">战争警戒（WarAlert）</div>
+          <div class="proj-desc">联机竞技 RTS · 移动端 / PC 端</div>
+          <div class="proj-tag">展示页制作中</div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-name">神选者（The Chosen One）</div>
+          <div class="proj-desc">支持联机的恶魔城 · Unity</div>
+          <div class="proj-tag">展示页制作中</div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-name">CHD 科创平台</div>
+          <div class="proj-desc">长安大学线上赛事交流微信小程序</div>
+          <div class="proj-tag">展示页制作中</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 技术栈 -->
-  <section id="stack">
+  <section id="unrealgenai">
     <div class="wrap">
       <h2>技术栈</h2>
       <p class="sec-desc">从大模型训练到编辑器自动化，全链路自研</p>
@@ -307,6 +372,10 @@
         <figure data-src="assets/unrealgenai-4.jpg">
           <img src="assets/unrealgenai-4.jpg" alt="UnrealGenAI 截图 4" loading="lazy">
           <figcaption>项目截图 4</figcaption>
+        </figure>
+        <figure data-src="assets/unrealgenai-5.jpg">
+          <img src="assets/unrealgenai-5.jpg" alt="UnrealGenAI 截图 5" loading="lazy">
+          <figcaption>项目截图 5</figcaption>
         </figure>
       </div>
     </div>
