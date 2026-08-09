@@ -13,6 +13,7 @@ os.makedirs(PROJ_DIR, exist_ok=True)
 PROJECTS = [
     {
         'id': 'waralert',
+        'type': '游戏',
         'title': '战争警戒（WarAlert）',
         'subtitle': '联机竞技 RTS · 移动端 / PC 端',
         'tagline': 'REAL-TIME STRATEGY · 联机竞技 RTS',
@@ -54,6 +55,7 @@ PROJECTS = [
     },
     {
         'id': 'unrealgenai',
+        'type': 'AI+游戏',
         'title': 'UnrealGenAI',
         'subtitle': 'AI 驱动虚幻引擎游戏开发',
         'tagline': 'AI × GAME DEV · AI 驱动游戏开发',
@@ -97,6 +99,7 @@ PROJECTS = [
     },
     {
         'id': 'rl4rts',
+        'type': 'AI+游戏',
         'title': 'RL4RTS',
         'subtitle': '二战 RTS 游戏强化学习 Bot 训练框架',
         'tagline': 'REINFORCEMENT LEARNING · 强化学习 × 游戏 AI',
@@ -143,6 +146,7 @@ PROJECTS = [
     },
     {
         'id': 'hanhang',
+        'type': 'AI应用',
         'title': '瀚航咨询',
         'subtitle': '企业咨询大模型微调与数据飞轮平台（GLM-4-9B）',
         'tagline': 'LLM FINE-TUNING · 大模型微调 × 数据飞轮',
@@ -190,6 +194,7 @@ PROJECTS = [
     },
     {
         'id': 'yuan',
+        'type': 'AI应用',
         'title': '源世界平台',
         'subtitle': '视觉小说创作与分发全栈平台',
         'tagline': 'FULL-STACK PLATFORM · 视觉小说创作与分发',
@@ -225,6 +230,7 @@ PROJECTS = [
     },
     {
         'id': 'yinghuo',
+        'type': 'AI应用',
         'title': '萤火智创（FireflyMind）',
         'subtitle': 'AI 辅助一人创业全流程平台',
         'tagline': 'AI PRODUCT · 一人公司的 AI 总工程师',
@@ -256,6 +262,7 @@ PROJECTS = [
     },
     {
         'id': 'gamegodengine',
+        'type': 'AI+游戏',
         'title': 'GameGodEngine',
         'subtitle': 'AI 游戏开发 Agent',
         'tagline': 'AI GAME DEV AGENT · 用自然语言开发游戏',
@@ -288,6 +295,7 @@ PROJECTS = [
     },
     {
         'id': 'dreamworld',
+        'type': '游戏',
         'title': 'DreamWorld（梦境世界）',
         'subtitle': '基于 The Bazaar 的卡牌战斗复刻（UE 5.7）',
         'tagline': 'GAME ENGINE · 自研 GAS 能力系统 × 卡牌对战',
@@ -326,6 +334,7 @@ PROJECTS = [
     },
     {
         'id': 'xiantu',
+        'type': '游戏',
         'title': 'TheImmortal（代号：仙途）',
         'subtitle': 'UE 5.7 仙侠卡牌对战游戏',
         'tagline': 'GAME DEV · UE 5.7 仙侠卡牌对战',
@@ -354,6 +363,7 @@ PROJECTS = [
     },
     {
         'id': 'training',
+        'type': '培训',
         'title': '编码优化培训项目',
         'subtitle': 'WarAlert 新人培训 · 编码规范与程序优化',
         'tagline': 'TRAINING · 新人编码规范与优化培训',
@@ -377,6 +387,7 @@ PROJECTS = [
     },
     {
         'id': 'shenxuan',
+        'type': '游戏',
         'title': '神选者（The Chosen One）',
         'subtitle': '支持联机的恶魔城',
         'tagline': 'INDIE GAME · 独立游戏开发',
@@ -402,6 +413,7 @@ PROJECTS = [
     },
     {
         'id': 'chd',
+        'type': '校园项目',
         'title': 'CHD 科创平台',
         'subtitle': '长安大学线上赛事交流微信小程序',
         'tagline': 'CAMPUS PROJECT · 校园项目',
@@ -427,6 +439,7 @@ PROJECTS = [
         ],
     },    {
         'id': 'qinghai',
+        'type': '校园项目',
         'title': '青海物探处项目',
         'subtitle': '甘肃青海物探处工程管理程序',
         'tagline': 'FIELD PROJECT · 实地调研交付的工程管理程序',
@@ -449,9 +462,8 @@ PROJECTS = [
             ]),
         ],
         'stack': ['JavaScript', 'Java', '腾讯云开发', '微信小程序', '实地需求调研'],
-        'gallery': [
-            ('assets/qinghai-1.jpg', '大学期间赴敦煌实地考察时拍摄', False),
-        ],
+        'gallery': None,
+        'field_photo': ('assets/qinghai-1.jpg', '大学期间前往甘肃敦煌实地考察时拍摄'),
     },
 
 ]
@@ -571,6 +583,15 @@ def project_page(p):
             '  });\n'
             '})();\n'
             '</script>' % (slides_path, n, n, slides_path))
+    # 实地考察照片（PPT 正下方，独立显眼文本行）
+    if p.get('field_photo'):
+        src, note = p['field_photo']
+        sections.append(
+            '  <section id="fieldphoto">\n    <div class="wrap">\n      <h2>实地考察</h2>\n'
+            '      <div class="field-photo">\n'
+            '        <img src="../%s" alt="%s">\n'
+            '        <p class="field-note">%s</p>\n'
+            '      </div>\n    </div>\n  </section>' % (src, note, note))
     # 简介
     intro = p.get('intro', '')
     goal = p.get('goal')
@@ -672,10 +693,11 @@ def index_page():
     for p in PROJECTS:
         cards.append(
             '        <a class="proj-card" href="projects/%s.html">\n'
+            '          <div class="proj-type">%s</div>\n'
             '          <div class="proj-name">%s</div>\n'
             '          <div class="proj-desc">%s</div>\n'
             '          <div class="proj-tag">查看详情 →</div>\n'
-            '        </a>' % (p['id'], p['title'], p['subtitle']))
+            '        </a>' % (p['id'], p.get('type', '项目'), p['title'], p['subtitle']))
     return '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>

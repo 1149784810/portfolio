@@ -153,8 +153,28 @@ h2::before {
 }
 .proj-card:hover { border-color: rgba(74,168,216,0.5); background: var(--bg-card-hover); transform: translateY(-2px); }
 .proj-name { font-size: 15.5px; font-weight: 700; margin-bottom: 6px; }
+.proj-type {
+  display: inline-block; margin-bottom: 8px;
+  padding: 2px 10px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+  color: #9fd4f0; background: rgba(35, 142, 178, 0.14);
+  border: 1px solid rgba(35, 142, 178, 0.4);
+}
 .proj-desc { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; min-height: 38px; }
 .proj-tag { font-size: 12px; color: var(--accent); }
+
+/* 实地考察照片（PPT 下方独立展示） */
+.field-photo { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.field-photo img {
+  max-width: 660px; width: 100%; border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.field-note {
+  font-size: 15px; font-weight: 700; color: #d9ecf7;
+  background: rgba(74, 168, 216, 0.14);
+  border: 1px solid rgba(74, 168, 216, 0.45);
+  padding: 8px 22px; border-radius: 999px;
+}
 
 /* ── 截图 ── */
 .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
