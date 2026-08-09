@@ -167,7 +167,14 @@ PROJECTS = [
             ]),
         ],
         'stack': ['Python FastAPI', 'Pydantic', 'SQLite', 'React 18', 'Vite', 'TypeScript', 'Ant Design', 'shadcn/ui', 'Tailwind', 'React Query', '@xyflow/react', 'ComfyUI', 'Seedream', 'MiniMax', '火山引擎', 'WebGAL', 'Playwright'],
-        'gallery': None,
+        'gallery': [
+            ('assets/yuan-1.jpg', '项目截图 1', False),
+            ('assets/yuan-2.jpg', '项目截图 2', False),
+            ('assets/yuan-3.jpg', '项目截图 3', False),
+            ('assets/yuan-4.jpg', '项目截图 4', False),
+            ('assets/yuan-5.jpg', '项目截图 5', False),
+            ('assets/yuan-6.jpg', '项目截图 6', False),
+        ],
     },
     {
         'id': 'yinghuo',
@@ -317,7 +324,10 @@ PROJECTS = [
             ]),
         ],
         'stack': ['JavaScript', 'Java', '腾讯云开发', '微信小程序'],
-        'gallery': None,
+        'gallery': [
+            ('assets/chd-1.jpg', '校内科创比赛', False),
+            ('assets/chd-2.jpg', '校内科创比赛', False),
+        ],
     },
 ]
 
