@@ -115,6 +115,13 @@
     padding: 1px 5px; border-radius: 4px;
   }
 
+  /* 项目展示标题区 */
+  .proj-showcase .tagline {
+    font-size: 13px; letter-spacing: 3px; color: var(--accent);
+    margin-bottom: 10px; font-weight: 600;
+  }
+  .proj-showcase .meta-row { margin-top: 14px; }
+
   /* 项目列表卡片 */
   .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 12px; }
   .proj-card {
@@ -182,16 +189,16 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="tagline">PERSONAL PROJECT · AI × GAME DEV</div>
-    <h1>UnrealGenAI<span class="grad"> 作品展示</span></h1>
+    <div class="tagline">PERSONAL PORTFOLIO</div>
+    <h1>何健乐<span class="grad"> 项目作品集</span></h1>
     <p class="sub">
-      AI 驱动虚幻引擎游戏开发：基于 Qwen3-32B 持续预训练，让基座模型学会 3D 游戏布景与 UI 蓝图拼接，
-      并通过 SFT 微调使其能够调用自研 Agent 工具，实现虚幻资产的批量操作。
+      AI 驱动游戏开发与全栈项目作品展示：大模型微调、强化学习、虚幻引擎、Web 全栈……
+      个人项目持续更新中。
     </p>
     <div class="meta-row">
-      <span class="chip"><span class="dot"></span>进行中 · 2026.06.15 - 至今</span>
+      <span class="chip"><span class="dot"></span>持续更新中</span>
       <span class="chip accent">个人项目</span>
-      <span class="chip">AI / 游戏开发 / 工具链</span>
+      <span class="chip">AI × 游戏开发 × 全栈</span>
     </div>
   </div>
 </header>
@@ -247,8 +254,22 @@
     </div>
   </section>
 
+  <!-- UnrealGenAI 作品展示 -->
+  <section id="unrealgenai" class="proj-showcase">
+    <div class="wrap">
+      <div class="tagline">PROJECT SHOWCASE · UNREALGENAI</div>
+      <h2>UnrealGenAI 作品展示</h2>
+      <p class="sec-desc">AI 驱动虚幻引擎游戏开发：基于 Qwen3-32B 持续预训练，让基座模型学会 3D 游戏布景与 UI 蓝图拼接，并通过 SFT 微调使其能够调用自研 Agent 工具，实现虚幻资产的批量操作。</p>
+      <div class="meta-row">
+        <span class="chip"><span class="dot"></span>进行中 · 2026.06.15 - 至今</span>
+        <span class="chip accent">个人项目</span>
+        <span class="chip">AI / 游戏开发 / 工具链</span>
+      </div>
+    </div>
+  </section>
+
   <!-- 技术栈 -->
-  <section id="unrealgenai">
+  <section id="stack">
     <div class="wrap">
       <h2>技术栈</h2>
       <p class="sec-desc">从大模型训练到编辑器自动化，全链路自研</p>
@@ -383,7 +404,7 @@
 </main>
 
 <footer>
-  <div class="wrap">何健乐 · 个人作品集 — UnrealGenAI</div>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
 </footer>
 
 <!-- Lightbox -->
