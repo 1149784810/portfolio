@@ -67,7 +67,7 @@ PROJECTS = [
         'links': [
             ('RL4RTS 训练指标观测', 'https://u937336-a523-5e36e2ef.westc.seetacloud.com:8443'),
         ],
-        'intro': '面向二战题材联机竞技 RTS 的强化学习训练框架。最终目标：训练可上线 PvP Bot，按段位生产不同强度、模拟真人，填充排位匹配（当前里程碑：1v1 完整对局击败规则 AI 胜率 ≥60%，且在 2+ 张地图泛化）。路线：百万级录像模仿学习（BC）→ 门禁评测 → KL 锚定 PPO → 自博弈阶梯（League）。',
+        'intro': '面向二战题材联机竞技 RTS 的强化学习训练框架。最终目标：训练可上线 PvP Bot，按段位生产不同强度、模拟真人，填充排位匹配。路线：百万级录像模仿学习（BC）→ 门禁评测 → KL 锚定 PPO → 自博弈阶梯（League）。',
         'groups': [
             ('C++/Python 桥接层（headless 训练环境）', [
                 '基于 pybind11 将游戏战斗核心（BattleCore，50+ 子模块）剥离为 headless 确定性训练环境（CMake 只读引用游戏源码，零 sim-to-real gap）',
