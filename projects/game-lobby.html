@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冒险岛游戏大厅 — 公司内部网页游戏大厅与 Agent 部署平台</title>
+<meta name="description" content="公司内部网页游戏大厅：同事上传自制 web 游戏、版本日志、评论反馈与开发者中心，并提供给开发 Agent 使用的部署 ">
+<link rel="stylesheet" href="../assets/style.css?v=2">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a href="../index.html">← 返回项目列表</a>
+    <span class="site">何健乐 · 个人项目作品集</span>
+  </div>
+</nav>
+
+<header class="hero hero-sm">
+  <div class="wrap">
+    <div class="tagline">GAME LOBBY · 自研游戏大厅 × Agent 部署 API</div>
+    <h1>冒险岛游戏大厅<span class="grad"> · 公司内部网页游戏大厅与 Agent 部署平台</span></h1>
+    <div class="meta-row">
+      <span class="chip"><span class="dot"></span>运行中 · 2026.08.14 - 至今</span>
+        <span class="chip accent">项目负责人 + 主程序</span>
+        <span class="chip">Node.js 零依赖 / 80 端口 / WebSocket 透传</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="links">
+    <div class="wrap">
+      <h2>链接</h2>
+      <div class="link-list">
+        <div class="link-item"><a href="http://49.235.186.227/" target="_blank" rel="noopener">游戏大厅（公网）</a></div>
+      </div>
+    </div>
+  </section>
+  <section id="intro">
+    <div class="wrap">
+      <h2>项目简介</h2>
+      <p class="intro-text">公司内部网页游戏大厅：同事上传自制 web 游戏、版本日志、评论反馈与开发者中心，并提供给开发 Agent 使用的部署 API。大厅代码零依赖运行于 Node.js 22，80 端口同时承担大厅、部署 API 与多个独立游戏服务器的反向代理。</p>
+    </div>
+  </section>
+  <section id="screenshots">
+    <div class="wrap">
+      <h2>项目截图</h2>
+      <div class="gallery">
+        <figure data-src="../assets/game-lobby-1.jpg">
+          <img src="../assets/game-lobby-1.jpg" alt="游戏大厅首页" loading="lazy">
+          <figcaption>游戏大厅首页</figcaption>
+        </figure>
+        <figure data-src="../assets/game-lobby-2.jpg">
+          <img src="../assets/game-lobby-2.jpg" alt="开发者中心" loading="lazy">
+          <figcaption>开发者中心</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <section id="work">
+    <div class="wrap">
+      <h2>核心工作</h2>
+      <div class="work-list">
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-body">
+          <h3>大厅与游戏中心</h3>
+          <ul>
+          <li>黑金科技风单页前端：游戏列表、详情页、版本切换、评论反馈、播放统计与开发者中心</li>
+          <li>文件系统存储（metadata.json / comments.json / games/），无数据库依赖，部署简单、数据可直接备份</li>
+          <li>同名游戏自动追加新版本，玩家可随时切换回旧版本试玩</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div class="work-body">
+          <h3>部署 API 与令牌体系</h3>
+          <ul>
+          <li>面向开发 Agent 的推送接口：支持 raw zip 与 multipart/form-data 两种上传方式</li>
+          <li>令牌 v2 体系：游戏与令牌主人绑定，只有创建该游戏的令牌才能更新或删除</li>
+          <li>隐藏发布模式：hidden 游戏不出现在大厅、我的游戏与公开详情，仅通过直接 play 链接访问</li>
+          <li>配套 status / mygames / meta / cover 等接口，上传前可查询并递增线上版本</li>
+          </ul>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">03</div>
+        <div class="work-body">
+          <h3>反向代理与运维</h3>
+          <ul>
+          <li>80 端口统一入口：为 hive-command（3000）与绝地潜兵2 房间服务器（3001）提供 HTTP 与 WebSocket 透传</li>
+          <li>systemd 守护、日志与重启流程标准化，适合长期运行</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack">
+    <div class="wrap">
+      <h2>技术栈</h2>
+      <div class="stack">
+<span>Node.js 22</span>
+        <span>零依赖 HTTP 服务</span>
+        <span>文件系统存储</span>
+        <span>multipart 解析</span>
+        <span>zip 解压</span>
+        <span>WebSocket 反向代理</span>
+        <span>systemd</span>
+        <span>原生 HTML/CSS/JS</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">何健乐 · 个人项目作品集</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="close" id="lbClose">×</span>
+  <span class="nav prev" id="lbPrev">‹</span>
+  <img id="lbImg" src="" alt="预览">
+  <span class="nav next" id="lbNext">›</span>
+</div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure[data-src]'));
+  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var idx = 0;
+  if (!lb || srcs.length === 0) return;
+  function open(i) {
+    idx = (i + srcs.length) % srcs.length;
+    img.src = srcs[idx];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  figures.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(idx - 1);
+    if (e.key === 'ArrowRight') open(idx + 1);
+  });
+})();
+</script>
+
+</body>
+</html>

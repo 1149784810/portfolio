@@ -12,6 +12,8 @@ AI 驱动虚幻引擎游戏开发作品展示。
 - 战争警戒（WarAlert）— 联机竞技 RTS（展示页制作中）
 - 神选者（The Chosen One）— 支持联机的恶魔城（展示页制作中）
 - CHD 科创平台 — 长安大学线上赛事交流微信小程序（展示页制作中）
+- 冒险岛游戏大厅 — 公司内部网页游戏大厅与 Agent 部署平台（已收录）
+- DSH GameMaker 插件 — DeepSeek Harness 游戏开发角色 subagent 与预设（已收录）
 
 ## 技术
 

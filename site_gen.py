@@ -466,6 +466,81 @@ PROJECTS = [
         'field_photo': ('assets/qinghai-1.jpg', '大学期间前往甘肃敦煌实地考察时拍摄'),
     },
 
+    {
+        'id': 'game-lobby',
+        'type': '游戏',
+        'title': '冒险岛游戏大厅',
+        'subtitle': '公司内部网页游戏大厅与 Agent 部署平台',
+        'tagline': 'GAME LOBBY · 自研游戏大厅 × Agent 部署 API',
+        'chips': [
+            ('dot', '运行中 · 2026.08.14 - 至今'),
+            ('accent', '项目负责人 + 主程序'),
+            ('', 'Node.js 零依赖 / 80 端口 / WebSocket 透传'),
+        ],
+        'links': [
+            ('游戏大厅（公网）', 'http://49.235.186.227/'),
+        ],
+        'intro': '公司内部网页游戏大厅：同事上传自制 web 游戏、版本日志、评论反馈与开发者中心，并提供给开发 Agent 使用的部署 API。大厅代码零依赖运行于 Node.js 22，80 端口同时承担大厅、部署 API 与多个独立游戏服务器的反向代理。',
+        'groups': [
+            ('大厅与游戏中心', [
+                '黑金科技风单页前端：游戏列表、详情页、版本切换、评论反馈、播放统计与开发者中心',
+                '文件系统存储（metadata.json / comments.json / games/），无数据库依赖，部署简单、数据可直接备份',
+                '同名游戏自动追加新版本，玩家可随时切换回旧版本试玩',
+            ]),
+            ('部署 API 与令牌体系', [
+                '面向开发 Agent 的推送接口：支持 raw zip 与 multipart/form-data 两种上传方式',
+                '令牌 v2 体系：游戏与令牌主人绑定，只有创建该游戏的令牌才能更新或删除',
+                '隐藏发布模式：hidden 游戏不出现在大厅、我的游戏与公开详情，仅通过直接 play 链接访问',
+                '配套 status / mygames / meta / cover 等接口，上传前可查询并递增线上版本',
+            ]),
+            ('反向代理与运维', [
+                '80 端口统一入口：为 hive-command（3000）与绝地潜兵2 房间服务器（3001）提供 HTTP 与 WebSocket 透传',
+                'systemd 守护、日志与重启流程标准化，适合长期运行',
+            ]),
+        ],
+        'stack': ['Node.js 22', '零依赖 HTTP 服务', '文件系统存储', 'multipart 解析', 'zip 解压', 'WebSocket 反向代理', 'systemd', '原生 HTML/CSS/JS'],
+        'gallery': [
+            ('assets/game-lobby-1.jpg', '游戏大厅首页', False),
+            ('assets/game-lobby-2.jpg', '开发者中心', False),
+        ],
+    },
+    {
+        'id': 'jayhe-dsh-gamemaker',
+        'type': 'AI+游戏',
+        'title': 'DSH GameMaker 插件',
+        'subtitle': 'DeepSeek Harness 游戏开发角色 subagent 与预设',
+        'tagline': 'DSH PLUGIN · 游戏开发工作流插件',
+        'chips': [
+            ('dot', '已发布 · 2026.08.15'),
+            ('accent', '个人项目'),
+            ('', 'DeepSeek Harness / subagent / agent preset'),
+        ],
+        'links': [
+            ('GitHub 仓库', 'https://github.com/1149784810/jayhe-dsh-gamemaker'),
+            ('npm 包', 'https://www.npmjs.com/package/jayhe-dsh-gamemaker'),
+        ],
+        'intro': '为 DeepSeek Harness（dsh）开发的游戏开发工作流插件：提供 game_planner / game_executor / game_reviewer 三个角色 subagent，以及「游戏开发工坊」与「兼容极简模式」两套 agent 预设，把策划、并行编码、审查的完整游戏开发流程固化到 dsh 会话中。',
+        'groups': [
+            ('三角色 subagent providers', [
+                'game_planner：由真实 minimal 预设组成，固定完整 persona、仅保留持久 shell 与文件编辑器，负责输出模块边界、接口与验收标准',
+                'game_executor：子代理在自身 scope 内声明 presentAs("code")，强制走 PTC 代码模式，所有操作经 run_code 执行',
+                'game_reviewer：只读 minimal 预设，对合并产物做最终审查',
+            ]),
+            ('两套捆绑 agent 预设', [
+                'game-dev（游戏开发工坊）：强制工作前访谈，五阶段流水线与显式模式切换公告',
+                'game-minimal（兼容极简模式）：保持官方 minimal 行为，Windows 下自动将持久 bash 切换为 pwsh',
+            ]),
+            ('工程化与发布', [
+                '按 dsh.client 双面包协议配置 main / types / exports / files，支持 dsh plugin 安装',
+                'install 脚本自动链接本机 dsh 内部依赖（dsh-subagent / dsh-llm / dsh-session），保证 API 版本一致',
+                '已发布至 npm 与 GitHub（dsh-plugin topic），支持开发期 link 安装与正式 registry 安装',
+            ]),
+        ],
+        'stack': ['DeepSeek Harness (dsh)', 'JavaScript ESM', 'Node.js ≥ 18', 'subagents', 'agentPresets', 'codeRuntime (PTC)', 'bash / pwsh', 'npm'],
+        'gallery': None,
+    },
+
+
 ]
 
 # ───────────────────────── 页面模板 ─────────────────────────
