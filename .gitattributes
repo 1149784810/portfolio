@@ -1,0 +1,2 @@
+# 钩子脚本必须保持 LF 行尾，否则在 Windows（core.autocrlf=true）克隆后无法被 sh 执行
+.githooks/** text eol=lf

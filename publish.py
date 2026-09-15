@@ -126,6 +126,11 @@ def snapshot():
             pass
 
 
+def same_content(a, b):
+    """比较内容；忽略换行符差异（Windows 上 core.autocrlf 会让工作区是 CRLF）。"""
+    return a == b or a.replace(b'\r\n', b'\n') == b.replace(b'\r\n', b'\n')
+
+
 def mirror(dry_run=False):
     """把源码仓库已提交内容镜像到公开仓库（删除公开仓库中多余的站点文件）。"""
     files = snapshot()
@@ -136,7 +141,7 @@ def mirror(dry_run=False):
         dst_file = os.path.join(PUBLIC_REPO, rel)
         if os.path.exists(dst_file):
             with open(dst_file, 'rb') as f:
-                if f.read() == content:
+                if same_content(f.read(), content):
                     continue  # 内容一致，跳过
         log('    + %s' % rel)
         if not dry_run:
