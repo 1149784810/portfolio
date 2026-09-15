@@ -95,6 +95,7 @@ PROJECTS = [
             ('assets/unrealgenai-2.jpg', '项目截图 2', False),
             ('assets/unrealgenai-4.jpg', '项目截图 4', False),
             ('assets/unrealgenai-5.jpg', '项目截图 5', False),
+            ('assets/unrealgenai-6.png', 'NPR SFT 数据后台 · 蒸馏样本入库与训练批次管理', True),
         ],
     },
     {
