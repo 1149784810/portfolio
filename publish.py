@@ -14,9 +14,9 @@
 import argparse
 import datetime
 import os
-import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -97,38 +97,62 @@ def sync_message(repo):
     return ('同步站点：%s' % subject) if subject else '同步站点'
 
 
+def is_dev_file(rel_path):
+    """判断是否为仅源码仓库需要的开发文件（不发布到线上站点）。"""
+    parts = rel_path.replace('\\', '/').split('/')
+    return parts[0] in EXCLUDE
+
+
+def snapshot():
+    """导出源码仓库 HEAD 的内容清单 {相对路径: bytes}。
+
+    基于已提交内容而非工作区，保证公开仓库与源码仓库的提交状态严格一致。
+    """
+    tmp = tempfile.NamedTemporaryFile(suffix='.zip', delete=False)
+    tmp.close()
+    try:
+        run(['git', 'archive', '--format=zip', '-o', tmp.name, 'HEAD'], cwd=SRC_REPO, quiet=True)
+        import zipfile
+        with zipfile.ZipFile(tmp.name) as zf:
+            return {
+                info.filename: zf.read(info)
+                for info in zf.infolist()
+                if not info.is_dir() and not is_dev_file(info.filename)
+            }
+    finally:
+        try:
+            os.remove(tmp.name)
+        except OSError:
+            pass
+
+
 def mirror(dry_run=False):
-    """把源码仓库内容镜像到公开仓库（删除公开仓库中多余的站点文件）。"""
+    """把源码仓库已提交内容镜像到公开仓库（删除公开仓库中多余的站点文件）。"""
+    files = snapshot()
     copied, removed = 0, 0
 
-    # 1) 复制 / 覆盖
-    for root, dirs, files in os.walk(SRC_REPO):
-        dirs[:] = [d for d in dirs if d not in EXCLUDE]
-        rel = os.path.relpath(root, SRC_REPO)
-        dst_dir = PUBLIC_REPO if rel == '.' else os.path.join(PUBLIC_REPO, rel)
+    # 1) 写入新增 / 变更的文件
+    for rel, content in sorted(files.items()):
+        dst_file = os.path.join(PUBLIC_REPO, rel)
+        if os.path.exists(dst_file):
+            with open(dst_file, 'rb') as f:
+                if f.read() == content:
+                    continue  # 内容一致，跳过
+        log('    + %s' % rel)
         if not dry_run:
-            os.makedirs(dst_dir, exist_ok=True)
-        for name in files:
-            src_file = os.path.join(root, name)
-            dst_file = os.path.join(dst_dir, name)
-            if os.path.exists(dst_file) and os.path.getsize(dst_file) == os.path.getsize(src_file):
-                with open(src_file, 'rb') as f1, open(dst_file, 'rb') as f2:
-                    if f1.read() == f2.read():
-                        continue  # 内容一致，跳过
-            log('    + %s' % os.path.relpath(dst_file, PUBLIC_REPO).replace('\\', '/'))
-            if not dry_run:
-                shutil.copy2(src_file, dst_file)
-            copied += 1
+            os.makedirs(os.path.dirname(dst_file), exist_ok=True)
+            with open(dst_file, 'wb') as f:
+                f.write(content)
+        copied += 1
 
-    # 2) 删除公开仓库里已不存在的站点文件
-    for root, dirs, files in os.walk(PUBLIC_REPO):
+    # 2) 删除公开仓库中已不存在的站点文件
+    for root, dirs, names in os.walk(PUBLIC_REPO):
         dirs[:] = [d for d in dirs if d not in EXCLUDE]
-        rel = os.path.relpath(root, PUBLIC_REPO)
-        src_dir = SRC_REPO if rel == '.' else os.path.join(SRC_REPO, rel)
-        for name in files:
-            if not os.path.exists(os.path.join(src_dir, name)):
-                stale = os.path.join(root, name)
-                log('    - %s' % os.path.relpath(stale, PUBLIC_REPO).replace('\\', '/'))
+        for name in names:
+            stale = os.path.join(root, name)
+            rel = os.path.relpath(stale, PUBLIC_REPO).replace('\\', '/')
+            if rel not in files:
+                log('    - %s' % rel)
                 if not dry_run:
                     os.remove(stale)
                 removed += 1
