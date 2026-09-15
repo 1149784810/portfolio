@@ -138,7 +138,6 @@ PROJECTS = [
         'stack': ['Python 3.11', 'PyTorch', 'Gymnasium', 'pydantic', 'uv', 'C++17', 'pybind11', 'CMake/ninja', 'ONNX Runtime', 'DDP 分布式训练（6×RTX 5090）'],
         'gallery': [
             ('assets/rl4rts-1.jpg', '强化学习训练指标', False),
-            ('assets/rl4rts-2.jpg', '训练与评测', False),
             ('assets/rl4rts-3.jpg', '观战平台 · 训练对局 2D 态势回放与战报日志', True),
             ('assets/rl4rts-4.jpg', '奖罚设计系统 · win_rate / entropy / value_loss 指标统计', False),
             ('assets/rl4rts-5.jpg', '奖罚规则可视化编辑 · 触发器 + 条件 + 效果', False),
