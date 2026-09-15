@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RL4RTS — 二战 RTS 游戏强化学习 Bot 训练框架</title>
 <meta name="description" content="面向二战题材联机竞技 RTS 的强化学习训练框架。最终目标：训练可上线 PvP Bot，按段位生产不同强度、模拟真人，填">
-<link rel="stylesheet" href="../assets/style.css?v=3">
+<link rel="stylesheet" href="../assets/style.css?v=4">
 </head>
 <body>
 
@@ -47,12 +47,32 @@
     <div class="wrap">
       <h2>项目截图</h2>
       <div class="gallery">
-        <figure data-src="../assets/rl4rts-1.jpg">
-          <div class="media-box" style="aspect-ratio:2477/1329">
-            <div class="media-progress"><div class="bar"><i></i></div><span>0%</span></div>
-            <img data-src="../assets/rl4rts-1.jpg" alt="强化学习训练指标">
+        <figure class="wide video-fig">
+          <div class="media-box">
+            <div class="video-cover">
+              <button class="vplay" aria-label="播放视频">▶</button>
+              <span class="vhint">视频较大 · 点击后开始加载播放</span>
+            </div>
+            <video controls preload="none" data-src="../assets/rl4rts-demo.mp4"></video>
+            <div class="media-progress vprog"><div class="bar"><i></i></div><span>缓冲中…</span></div>
           </div>
-          <figcaption>强化学习训练指标</figcaption>
+          <figcaption>实机对战演示（AI 操控，战斗胜利收官）</figcaption>
+        </figure>
+      </div>
+<div class="gallery">
+        <figure data-src="../assets/rl4rts-4.jpg">
+          <div class="media-box" style="aspect-ratio:2560/1271">
+            <div class="media-progress"><div class="bar"><i></i></div><span>0%</span></div>
+            <img data-src="../assets/rl4rts-4.jpg" alt="奖罚设计系统 · win_rate / entropy / value_loss 指标统计">
+          </div>
+          <figcaption>奖罚设计系统 · win_rate / entropy / value_loss 指标统计</figcaption>
+        </figure>
+        <figure data-src="../assets/rl4rts-7.png">
+          <div class="media-box" style="aspect-ratio:1680/1256">
+            <div class="media-progress"><div class="bar"><i></i></div><span>0%</span></div>
+            <img data-src="../assets/rl4rts-7.png" alt="奖罚指标看板 · 单局平均质量（9 个分量卡按质量定序）">
+          </div>
+          <figcaption>奖罚指标看板 · 单局平均质量（9 个分量卡按质量定序）</figcaption>
         </figure>
         <figure class="wide" data-src="../assets/rl4rts-3.jpg">
           <div class="media-box" style="aspect-ratio:2560/1271">
@@ -60,13 +80,6 @@
             <img data-src="../assets/rl4rts-3.jpg" alt="观战平台 · 训练对局 2D 态势回放与战报日志">
           </div>
           <figcaption>观战平台 · 训练对局 2D 态势回放与战报日志</figcaption>
-        </figure>
-        <figure data-src="../assets/rl4rts-4.jpg">
-          <div class="media-box" style="aspect-ratio:2560/1271">
-            <div class="media-progress"><div class="bar"><i></i></div><span>0%</span></div>
-            <img data-src="../assets/rl4rts-4.jpg" alt="奖罚设计系统 · win_rate / entropy / value_loss 指标统计">
-          </div>
-          <figcaption>奖罚设计系统 · win_rate / entropy / value_loss 指标统计</figcaption>
         </figure>
         <figure data-src="../assets/rl4rts-5.jpg">
           <div class="media-box" style="aspect-ratio:2560/1271">
@@ -81,19 +94,6 @@
             <img data-src="../assets/rl4rts-6.jpg" alt="Tag 系统 · 单位/技能标签库驱动奖罚条件">
           </div>
           <figcaption>Tag 系统 · 单位/技能标签库驱动奖罚条件</figcaption>
-        </figure>
-      </div>
-<div class="gallery">
-        <figure class="wide video-fig">
-          <div class="media-box">
-            <div class="video-cover">
-              <button class="vplay" aria-label="播放视频">▶</button>
-              <span class="vhint">视频较大 · 点击后开始加载播放</span>
-            </div>
-            <video controls preload="none" data-src="../assets/rl4rts-demo.mp4"></video>
-            <div class="media-progress vprog"><div class="bar"><i></i></div><span>缓冲中…</span></div>
-          </div>
-          <figcaption>实机对战演示（AI 操控，战斗胜利收官）</figcaption>
         </figure>
       </div>
     </div>

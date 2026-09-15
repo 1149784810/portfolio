@@ -138,15 +138,16 @@ PROJECTS = [
         ],
         'stack': ['Python 3.11', 'PyTorch', 'Gymnasium', 'pydantic', 'uv', 'C++17', 'pybind11', 'CMake/ninja', 'ONNX Runtime', 'DDP 分布式训练（6×RTX 5090）'],
         'gallery': [
-            ('assets/rl4rts-1.jpg', '强化学习训练指标', False),
-            ('assets/rl4rts-3.jpg', '观战平台 · 训练对局 2D 态势回放与战报日志', True),
             ('assets/rl4rts-4.jpg', '奖罚设计系统 · win_rate / entropy / value_loss 指标统计', False),
+            ('assets/rl4rts-7.png', '奖罚指标看板 · 单局平均质量（9 个分量卡按质量定序）', False),
+            ('assets/rl4rts-3.jpg', '观战平台 · 训练对局 2D 态势回放与战报日志', True),
             ('assets/rl4rts-5.jpg', '奖罚规则可视化编辑 · 触发器 + 条件 + 效果', False),
             ('assets/rl4rts-6.jpg', 'Tag 系统 · 单位/技能标签库驱动奖罚条件', False),
         ],
         'videos': [
             ('assets/rl4rts-demo.mp4', '实机对战演示（AI 操控，战斗胜利收官）'),
         ],
+        'videos_first': True,
     },
     {
         'id': 'hanhang',
@@ -870,6 +871,8 @@ def project_page(p):
                     '          <figcaption>%s</figcaption>\n'
                     '        </figure>' % (href, cap))
             parts.append('<div class="gallery">\n%s\n      </div>' % '\n'.join(vids))
+        if p.get('videos_first') and len(parts) == 2:
+            parts.reverse()
         sections.append(
             '  <section id="screenshots">\n    <div class="wrap">\n      <h2>项目截图</h2>\n'
             '      %s\n    </div>\n  </section>' % '\n'.join(parts))
@@ -895,7 +898,7 @@ def project_page(p):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>%s — %s</title>
 <meta name="description" content="%s">
-<link rel="stylesheet" href="../assets/style.css?v=3">
+<link rel="stylesheet" href="../assets/style.css?v=4">
 </head>
 <body>
 
@@ -958,7 +961,7 @@ def index_page():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>何健乐项目作品集</title>
 <meta name="description" content="AI 驱动游戏开发与全栈项目作品展示">
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=4">
 </head>
 <body>
 
