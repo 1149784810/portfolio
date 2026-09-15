@@ -139,9 +139,13 @@ PROJECTS = [
         'gallery': [
             ('assets/rl4rts-1.jpg', '强化学习训练指标', False),
             ('assets/rl4rts-2.jpg', '训练与评测', False),
+            ('assets/rl4rts-3.jpg', '观战平台 · 训练对局 2D 态势回放与战报日志', True),
+            ('assets/rl4rts-4.jpg', '奖罚设计系统 · win_rate / entropy / value_loss 指标统计', False),
+            ('assets/rl4rts-5.jpg', '奖罚规则可视化编辑 · 触发器 + 条件 + 效果', False),
+            ('assets/rl4rts-6.jpg', 'Tag 系统 · 单位/技能标签库驱动奖罚条件', False),
         ],
         'videos': [
-            ('assets/rl4rts-demo.mp4', '对战演示视频'),
+            ('assets/rl4rts-demo.mp4', '实机对战演示（AI 操控，战斗胜利收官）'),
         ],
     },
     {
@@ -544,18 +548,169 @@ PROJECTS = [
 ]
 
 # ───────────────────────── 页面模板 ─────────────────────────
-LIGHTBOX_JS = """
+def img_dims(rel_path):
+    """读取 JPEG/PNG 的宽高（纯标准库），用于预留版面、避免加载时布局跳动。"""
+    path = os.path.join(BASE, rel_path)
+    try:
+        with open(path, 'rb') as f:
+            head = f.read(2)
+            if head == b'\xff\xd8':  # JPEG：扫描 SOF 段
+                while True:
+                    b = f.read(1)
+                    while b and b != b'\xff':
+                        b = f.read(1)
+                    marker = f.read(1)
+                    if not marker:
+                        return None
+                    m = marker[0]
+                    if m in (0x01, 0xD8, 0xD9) or 0xD0 <= m <= 0xD7:
+                        continue
+                    seg_len = int.from_bytes(f.read(2), 'big')
+                    if m in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7,
+                             0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                        f.read(1)
+                        h = int.from_bytes(f.read(2), 'big')
+                        w = int.from_bytes(f.read(2), 'big')
+                        return (w, h)
+                    f.seek(seg_len - 2, 1)
+            elif head == b'\x89P':  # PNG：IHDR 固定在第 16 字节后
+                f.seek(16)
+                w = int.from_bytes(f.read(4), 'big')
+                h = int.from_bytes(f.read(4), 'big')
+                return (w, h)
+    except OSError:
+        return None
+    return None
+
+
+def aspect_attr(rel_path):
+    """根据图片真实宽高生成 aspect-ratio 内联样式，拿不到尺寸则返回空串。"""
+    dims = img_dims(rel_path)
+    if not dims:
+        return ''
+    return ' style="aspect-ratio:%d/%d"' % dims
+
+
+MEDIA_JS = """
 <script>
 (function () {
+  /* ── 图片：进入视口才下载，fetch 流式读取显示真实进度 ── */
+  function setProgress(fig, pct) {
+    var bar = fig.querySelector('.media-progress .bar i');
+    var txt = fig.querySelector('.media-progress span');
+    if (bar) bar.style.width = pct + '%';
+    if (txt) txt.textContent = pct + '%';
+  }
+  function finish(fig) {
+    fig.classList.add('loaded');
+  }
+  function loadImage(fig) {
+    if (fig._loading) return;
+    fig._loading = true;
+    var img = fig.querySelector('img[data-src]');
+    if (!img) { finish(fig); return; }
+    var url = img.getAttribute('data-src');
+    function useDirect() {
+      img.addEventListener('load', function () { finish(fig); }, { once: true });
+      img.addEventListener('error', function () { finish(fig); }, { once: true });
+      img.src = url;
+      img.removeAttribute('data-src');
+    }
+    if (!(window.fetch && window.ReadableStream)) { useDirect(); return; }
+    fetch(url).then(function (resp) {
+      if (!resp.ok || !resp.body) { useDirect(); return null; }
+      var total = +resp.headers.get('Content-Length') || 0;
+      var reader = resp.body.getReader();
+      var chunks = [], received = 0;
+      (function pump() {
+        reader.read().then(function (r) {
+          if (r.done) {
+            var blob = new Blob(chunks, { type: resp.headers.get('Content-Type') || 'image/jpeg' });
+            var obj = URL.createObjectURL(blob);
+            fig._fullURL = obj;  // lightbox 直接复用，避免二次下载
+            img.addEventListener('load', function () { finish(fig); }, { once: true });
+            img.src = obj;
+            img.removeAttribute('data-src');
+            return;
+          }
+          chunks.push(r.value);
+          received += r.value.length;
+          if (total) setProgress(fig, Math.min(99, Math.round(received / total * 100)));
+          pump();
+        }).catch(useDirect);
+      })();
+      return null;
+    }).catch(useDirect);
+  }
+  var imgFigs = Array.prototype.slice.call(document.querySelectorAll('figure img[data-src]')).map(function (i) { return i.closest('figure'); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { io.unobserve(en.target); loadImage(en.target); }
+      });
+    }, { rootMargin: '400px 0px' });
+    imgFigs.forEach(function (f) { io.observe(f); });
+  } else {
+    imgFigs.forEach(loadImage);
+  }
+
+  /* ── 视频：点击封面才开始下载，缓冲进度可见 ── */
+  document.querySelectorAll('.video-fig').forEach(function (fig) {
+    var video = fig.querySelector('video');
+    var cover = fig.querySelector('.video-cover');
+    var prog = fig.querySelector('.vprog');
+    var txt = prog ? prog.querySelector('span') : null;
+    var started = false;
+    function showProg(s) { if (prog) prog.style.display = 'flex'; if (txt && s) txt.textContent = s; }
+    function hideProg() { if (prog) prog.style.display = 'none'; }
+    function bufferedPct() {
+      try {
+        if (video.duration && video.buffered.length) {
+          return Math.round(video.buffered.end(video.buffered.length - 1) / video.duration * 100);
+        }
+      } catch (e) {}
+      return 0;
+    }
+    video.addEventListener('progress', function () {
+      if (!started || !video.paused) return;
+      var p = bufferedPct();
+      if (txt) txt.textContent = '已缓冲 ' + p + '%';
+    });
+    video.addEventListener('waiting', function () { showProg('缓冲中…'); });
+    video.addEventListener('playing', function () {
+      hideProg();
+      fig.classList.add('loaded');
+      if (cover) cover.style.display = 'none';
+    });
+    video.addEventListener('loadedmetadata', function () {
+      if (video.videoWidth && video.videoHeight) {
+        var box = fig.querySelector('.media-box');
+        if (box) box.style.aspectRatio = video.videoWidth + ' / ' + video.videoHeight;
+      }
+    });
+    if (cover) cover.addEventListener('click', function () {
+      if (!started) {
+        started = true;
+        video.src = video.getAttribute('data-src');
+        video.removeAttribute('data-src');
+        video.preload = 'auto';
+        video.load();
+      }
+      showProg('缓冲中…');
+      var pr = video.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    });
+  });
+
+  /* ── Lightbox：点击放大（优先复用已下载的 blob） ── */
   var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure[data-src]'));
-  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
   var lb = document.getElementById('lightbox');
   var img = document.getElementById('lbImg');
   var idx = 0;
-  if (!lb || srcs.length === 0) return;
+  if (!lb || figures.length === 0) return;
   function open(i) {
-    idx = (i + srcs.length) % srcs.length;
-    img.src = srcs[idx];
+    idx = (i + figures.length) % figures.length;
+    img.src = figures[idx]._fullURL || figures[idx].getAttribute('data-src');
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -664,9 +819,14 @@ def project_page(p):
         sections.append(
             '  <section id="fieldphoto">\n    <div class="wrap">\n      <h2>实地考察</h2>\n'
             '      <div class="field-photo">\n'
-            '        <img src="../%s" alt="%s">\n'
+            '        <figure class="field-fig">\n'
+            '          <div class="media-box"%s>\n'
+            '            <div class="media-progress"><div class="bar"><i></i></div><span>0%%</span></div>\n'
+            '            <img data-src="../%s" alt="%s">\n'
+            '          </div>\n'
+            '        </figure>\n'
             '        <p class="field-note">%s</p>\n'
-            '      </div>\n    </div>\n  </section>' % (src, note, note))
+            '      </div>\n    </div>\n  </section>' % (aspect_attr(src), src, note, note))
     # 简介
     intro = p.get('intro', '')
     goal = p.get('goal')
@@ -685,16 +845,30 @@ def project_page(p):
                 cls = ' class="wide"' if wide else ''
                 href = '../' + src
                 figs.append(
-                    '        <figure%s data-src="%s">\n          <img src="%s" alt="%s" loading="lazy">\n'
-                    '          <figcaption>%s</figcaption>\n        </figure>' % (cls, href, href, cap, cap))
+                    '        <figure%s data-src="%s">\n'
+                    '          <div class="media-box"%s>\n'
+                    '            <div class="media-progress"><div class="bar"><i></i></div><span>0%%</span></div>\n'
+                    '            <img data-src="%s" alt="%s">\n'
+                    '          </div>\n'
+                    '          <figcaption>%s</figcaption>\n'
+                    '        </figure>' % (cls, href, aspect_attr(src), href, cap, cap))
             parts.append('<div class="gallery">\n%s\n      </div>' % '\n'.join(figs))
         if p.get('videos'):
             vids = []
             for src, cap in p['videos']:
                 href = '../' + src
                 vids.append(
-                    '        <figure class="wide">\n          <video controls preload="metadata" src="%s"></video>\n'
-                    '          <figcaption>%s</figcaption>\n        </figure>' % (href, cap))
+                    '        <figure class="wide video-fig">\n'
+                    '          <div class="media-box">\n'
+                    '            <div class="video-cover">\n'
+                    '              <button class="vplay" aria-label="播放视频">▶</button>\n'
+                    '              <span class="vhint">视频较大 · 点击后开始加载播放</span>\n'
+                    '            </div>\n'
+                    '            <video controls preload="none" data-src="%s"></video>\n'
+                    '            <div class="media-progress vprog"><div class="bar"><i></i></div><span>缓冲中…</span></div>\n'
+                    '          </div>\n'
+                    '          <figcaption>%s</figcaption>\n'
+                    '        </figure>' % (href, cap))
             parts.append('<div class="gallery">\n%s\n      </div>' % '\n'.join(vids))
         sections.append(
             '  <section id="screenshots">\n    <div class="wrap">\n      <h2>项目截图</h2>\n'
@@ -721,7 +895,7 @@ def project_page(p):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>%s — %s</title>
 <meta name="description" content="%s">
-<link rel="stylesheet" href="../assets/style.css?v=2">
+<link rel="stylesheet" href="../assets/style.css?v=3">
 </head>
 <body>
 
@@ -760,7 +934,7 @@ def project_page(p):
 </body>
 </html>
 ''' % (p['title'], p['subtitle'], p['intro'][:60], p['tagline'], p['title'], p['subtitle'],
-       chips_html(p['chips']), '\n'.join(sections), LIGHTBOX_JS)
+       chips_html(p['chips']), '\n'.join(sections), MEDIA_JS)
 
 
 def index_page():
@@ -784,7 +958,7 @@ def index_page():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>何健乐项目作品集</title>
 <meta name="description" content="AI 驱动游戏开发与全栈项目作品展示">
-<link rel="stylesheet" href="assets/style.css?v=2">
+<link rel="stylesheet" href="assets/style.css?v=3">
 </head>
 <body>
 

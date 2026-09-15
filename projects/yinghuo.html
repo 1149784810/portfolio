@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>萤火智创（FireflyMind） — AI 辅助一人创业全流程平台</title>
 <meta name="description" content="「一人公司的 AI 总工程师」：用户输入一句话想法，经历头脑风暴 → 市场调研 → 二次调整 → 产品研发四个强制分阶段">
-<link rel="stylesheet" href="../assets/style.css?v=2">
+<link rel="stylesheet" href="../assets/style.css?v=3">
 </head>
 <body>
 
@@ -119,15 +119,123 @@
 
 <script>
 (function () {
+  /* ── 图片：进入视口才下载，fetch 流式读取显示真实进度 ── */
+  function setProgress(fig, pct) {
+    var bar = fig.querySelector('.media-progress .bar i');
+    var txt = fig.querySelector('.media-progress span');
+    if (bar) bar.style.width = pct + '%';
+    if (txt) txt.textContent = pct + '%';
+  }
+  function finish(fig) {
+    fig.classList.add('loaded');
+  }
+  function loadImage(fig) {
+    if (fig._loading) return;
+    fig._loading = true;
+    var img = fig.querySelector('img[data-src]');
+    if (!img) { finish(fig); return; }
+    var url = img.getAttribute('data-src');
+    function useDirect() {
+      img.addEventListener('load', function () { finish(fig); }, { once: true });
+      img.addEventListener('error', function () { finish(fig); }, { once: true });
+      img.src = url;
+      img.removeAttribute('data-src');
+    }
+    if (!(window.fetch && window.ReadableStream)) { useDirect(); return; }
+    fetch(url).then(function (resp) {
+      if (!resp.ok || !resp.body) { useDirect(); return null; }
+      var total = +resp.headers.get('Content-Length') || 0;
+      var reader = resp.body.getReader();
+      var chunks = [], received = 0;
+      (function pump() {
+        reader.read().then(function (r) {
+          if (r.done) {
+            var blob = new Blob(chunks, { type: resp.headers.get('Content-Type') || 'image/jpeg' });
+            var obj = URL.createObjectURL(blob);
+            fig._fullURL = obj;  // lightbox 直接复用，避免二次下载
+            img.addEventListener('load', function () { finish(fig); }, { once: true });
+            img.src = obj;
+            img.removeAttribute('data-src');
+            return;
+          }
+          chunks.push(r.value);
+          received += r.value.length;
+          if (total) setProgress(fig, Math.min(99, Math.round(received / total * 100)));
+          pump();
+        }).catch(useDirect);
+      })();
+      return null;
+    }).catch(useDirect);
+  }
+  var imgFigs = Array.prototype.slice.call(document.querySelectorAll('figure img[data-src]')).map(function (i) { return i.closest('figure'); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { io.unobserve(en.target); loadImage(en.target); }
+      });
+    }, { rootMargin: '400px 0px' });
+    imgFigs.forEach(function (f) { io.observe(f); });
+  } else {
+    imgFigs.forEach(loadImage);
+  }
+
+  /* ── 视频：点击封面才开始下载，缓冲进度可见 ── */
+  document.querySelectorAll('.video-fig').forEach(function (fig) {
+    var video = fig.querySelector('video');
+    var cover = fig.querySelector('.video-cover');
+    var prog = fig.querySelector('.vprog');
+    var txt = prog ? prog.querySelector('span') : null;
+    var started = false;
+    function showProg(s) { if (prog) prog.style.display = 'flex'; if (txt && s) txt.textContent = s; }
+    function hideProg() { if (prog) prog.style.display = 'none'; }
+    function bufferedPct() {
+      try {
+        if (video.duration && video.buffered.length) {
+          return Math.round(video.buffered.end(video.buffered.length - 1) / video.duration * 100);
+        }
+      } catch (e) {}
+      return 0;
+    }
+    video.addEventListener('progress', function () {
+      if (!started || !video.paused) return;
+      var p = bufferedPct();
+      if (txt) txt.textContent = '已缓冲 ' + p + '%';
+    });
+    video.addEventListener('waiting', function () { showProg('缓冲中…'); });
+    video.addEventListener('playing', function () {
+      hideProg();
+      fig.classList.add('loaded');
+      if (cover) cover.style.display = 'none';
+    });
+    video.addEventListener('loadedmetadata', function () {
+      if (video.videoWidth && video.videoHeight) {
+        var box = fig.querySelector('.media-box');
+        if (box) box.style.aspectRatio = video.videoWidth + ' / ' + video.videoHeight;
+      }
+    });
+    if (cover) cover.addEventListener('click', function () {
+      if (!started) {
+        started = true;
+        video.src = video.getAttribute('data-src');
+        video.removeAttribute('data-src');
+        video.preload = 'auto';
+        video.load();
+      }
+      showProg('缓冲中…');
+      var pr = video.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    });
+  });
+
+  /* ── Lightbox：点击放大（优先复用已下载的 blob） ── */
   var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure[data-src]'));
-  var srcs = figures.map(function (f) { return f.getAttribute('data-src'); });
   var lb = document.getElementById('lightbox');
   var img = document.getElementById('lbImg');
   var idx = 0;
-  if (!lb || srcs.length === 0) return;
+  if (!lb || figures.length === 0) return;
   function open(i) {
-    idx = (i + srcs.length) % srcs.length;
-    img.src = srcs[idx];
+    idx = (i + figures.length) % figures.length;
+    img.src = figures[idx]._fullURL || figures[idx].getAttribute('data-src');
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
